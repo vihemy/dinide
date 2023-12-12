@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-
 public class ImageDownloader : MonoBehaviour
 {
     public Image displayImage; // Assign this in the inspector with your UI Image

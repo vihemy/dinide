@@ -8,7 +8,6 @@ public class PromptInput : MonoBehaviour
 {
     private string prompt;
     [SerializeField] private TMP_InputField inputField;
-    [SerializeField] private DalleAPI dalleAPI;
     [SerializeField] private EntryDisplayer entryDisplayer;
 
     private void Awake()
@@ -20,7 +19,7 @@ public class PromptInput : MonoBehaviour
     {
         prompt = inputField.text;
         Debug.Log(prompt);
-        dalleAPI.DalleRequest(prompt);
+        DalleAPIManager.Instance.RequestDalle(prompt);
 
         // NewEntry();
         ClearInputField();
