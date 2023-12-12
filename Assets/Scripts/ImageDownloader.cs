@@ -4,11 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-//TODO:
-// save as texture-file in stead of png, if this is more space efficient
-// display from disk (persistentDataPath), so old images can be displayed. (images on openai's server expires after 1-2 hours)
-// download as jpg to save size
-// download prompt and revised prompt as metadata to image
+
 public class ImageDownloader : MonoBehaviour
 {
     public Image displayImage; // Assign this in the inspector with your UI Image

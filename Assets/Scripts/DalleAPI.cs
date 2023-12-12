@@ -3,13 +3,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Text;
 
-// TODOS:
-// Extract apiKey from code (set in file or in environment variable)
-// Offline functionality: Save images to disk and use as backup, if connection failes or daily limit has been exceeded
-// Make sure that multiple requests are not send at the time to avoid overspending.
-// extract url from jsonresponse and pass to ImageDownloader
-// extract prompt and pass as name or text to ImageDownloader (maybe create an object consisting of image/texture, prompt, and url)
-
 public class DalleAPI : MonoBehaviour
 {
     // Modified from this: https://community.openai.com/t/unity-request-to-openai-api-returns-empty-text/135714
@@ -29,7 +22,7 @@ public class DalleAPI : MonoBehaviour
         byte[] bodyRaw = Encoding.UTF8.GetBytes(requestData);
         request.uploadHandler = new UploadHandlerRaw(bodyRaw); // uses raw to achieve greater control of data format (json), greater effeciency in data   transmission, and bypassing unity built-in serialization.
         request.downloadHandler = new DownloadHandlerBuffer();
-
+½
         ManageMemory(request);
         SetRequestHeaders(request);
         SendWebRequest(prompt, request);
@@ -83,7 +76,7 @@ public class DalleAPI : MonoBehaviour
     [System.Serializable]
     public class DalleResponse
     {
-        public ImageData[] data;
+        public ImageData[] data; // uses array because multiple images can be returned if n > 1 (dalle-2)
     }
 
     [System.Serializable]
@@ -93,7 +86,7 @@ public class DalleAPI : MonoBehaviour
     }
 
     [System.Serializable]
-    public class EntryData
+    public struct EntryData
     {
         public string prompt;
         public string image;
