@@ -9,9 +9,34 @@ public class DalleAPIManager : Singleton<DalleAPIManager>
     private readonly string apiURL = "https://api.openai.com/v1/images/generations";
     private readonly string apiKey = "***REMOVED***";
 
-    [SerializeField] private ImageDownloader imageDownloader;
-
     public void RequestDalle(string prompt)
+    {
+        StartCoroutine(SendWebRequestCoroutine(prompt));
+    }
+
+    private IEnumerator SendWebRequestCoroutine(string prompt)
+    {
+        UnityWebRequest request = SetupRequest(prompt);
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.DataProcessingError)
+        {
+            Debug.Log(request.error);
+        }
+        else
+        {
+            string response = request.downloadHandler.text; // EXTRACT AS METHOD
+            Debug.Log("Response: " + response); // INCLUDE IN METHOD
+            EntryData entryData = new EntryData();
+            entryData.prompt = prompt;
+            entryData.imageUrl = ExtractUrl(response);
+
+            ImageDownloader.Instance.DownloadAndDisplayImage(entryData);
+        }
+    }
+
+    private UnityWebRequest SetupRequest(string prompt)
     {
         string requestData = "{\"model\": \"dall-e-3\", " +
                              "\"prompt\": \"" + prompt + "\", " +
@@ -25,7 +50,7 @@ public class DalleAPIManager : Singleton<DalleAPIManager>
 
         ManageMemory(request);
         SetRequestHeaders(request);
-        SendWebRequest(prompt, request);
+        return request;
     }
 
     private static void ManageMemory(UnityWebRequest request)
@@ -40,36 +65,21 @@ public class DalleAPIManager : Singleton<DalleAPIManager>
         request.SetRequestHeader("Content-Type", "application/json");
     }
 
-    private void SendWebRequest(string prompt, UnityWebRequest request)
-    {
-        request.SendWebRequest().completed += operation =>
-        {
-            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.DataProcessingError)
-            {
-                Debug.Log(request.error);
-            }
-            else
-            {
-                string responseInfo = request.downloadHandler.text;
-                HandleResponse(responseInfo, prompt);
-                Debug.Log("Response: " + responseInfo);
-            }
-        };
-    }
-
-    public void HandleResponse(string jsonResponse, string prompt)
+    private string ExtractUrl(string jsonResponse)
     {
         DalleResponse response = JsonUtility.FromJson<DalleResponse>(jsonResponse);
+
+        string imageUrl = null;
         if (response != null && response.data != null && response.data.Length > 0)
         {
-
-            string imageUrl = response.data[0].url;
-            imageDownloader.DownloadAndDisplayImage(imageUrl, prompt);
+            imageUrl = response.data[0].url;
         }
         else
         {
             Debug.LogError("Invalid response or no image URL found");
         }
+
+        return imageUrl;
     }
 
     [System.Serializable]
@@ -85,9 +95,9 @@ public class DalleAPIManager : Singleton<DalleAPIManager>
     }
 
     [System.Serializable]
-    public struct EntryData
+    public class EntryData
     {
         public string prompt;
-        public string image;
+        public string imageUrl;
     }
 }

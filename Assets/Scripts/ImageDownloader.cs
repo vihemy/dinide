@@ -4,19 +4,20 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-public class ImageDownloader : MonoBehaviour
+using static DalleAPIManager; // somehow cant reference EntryData without this namespace-decleration
+public class ImageDownloader : Singleton<ImageDownloader>
 {
     public Image displayImage; // Assign this in the inspector with your UI Image
     [SerializeField] private EntryDisplayer entryDisplayer;
 
-    public void DownloadAndDisplayImage(string imageUrl, string prompt)
+    public void DownloadAndDisplayImage(EntryData entryData)
     {
-        StartCoroutine(DownloadImage(imageUrl, prompt));
+        StartCoroutine(DownloadImage(entryData));
     }
 
-    private IEnumerator DownloadImage(string imageUrl, string prompt)
+    private IEnumerator DownloadImage(EntryData entryData)
     {
-        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(imageUrl))
+        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(entryData.imageUrl))
         {
             yield return uwr.SendWebRequest();
 
@@ -28,20 +29,11 @@ public class ImageDownloader : MonoBehaviour
             {
                 // Get the downloaded image
                 Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
-                entryDisplayer.CreateEntry(texture, prompt);
-                SaveTextureAsPNG(texture, prompt);
+                entryDisplayer.CreateEntry(texture, entryData.prompt);
+                SaveTextureAsPNG(texture, entryData.prompt);
             }
         }
     }
-
-    // MOVED TO ENTRYDISPLAYER.CS
-    // private void DisplayImage(Texture2D texture)
-    // {
-    //     var rect = new Rect(0, 0, texture.width, texture.height);
-    //     var sprite = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f), 100);
-    //     displayImage.sprite = sprite;
-    // }
-
 
     private void SaveTextureAsPNG(Texture2D texture, string filename)
     {
