@@ -2,109 +2,111 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Text;
-using UnityEngine.Assertions;
 
 public class DalleAPIManager : Singleton<DalleAPIManager>
 {
-    // Modified from this: https://community.openai.com/t/unity-request-to-openai-api-returns-empty-text/135714
     private string apiURL;
     private string apiKey;
 
     private void Start()
     {
-        apiURL = ConfigLoader.Instance.LoadFromConfig("API_URL");
-        apiKey = ConfigLoader.Instance.LoadFromConfig("API_KEY");
+        LoadConfiguration();
     }
 
     public void RequestDalle(string prompt)
     {
-        StartCoroutine(SendWebRequestCoroutine(prompt));
+        StartCoroutine(SendDalleRequest(prompt));
     }
 
-    private IEnumerator SendWebRequestCoroutine(string prompt)
+    private IEnumerator SendDalleRequest(string prompt)
     {
-        UnityWebRequest request = SetupRequest(prompt);
+        UnityWebRequest request = CreateDalleRequest(prompt);
 
         yield return request.SendWebRequest();
 
-        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.DataProcessingError)
+        if (IsRequestSuccessful(request))
         {
-            Debug.Log(request.error);
+            HandleSuccessfulRequest(request, prompt);
         }
         else
         {
-            string response = request.downloadHandler.text; // EXTRACT AS METHOD
-            Debug.Log("Response: " + response); // INCLUDE IN METHOD
-            EntryData entryData = new EntryData();
-            entryData.prompt = prompt;
-            entryData.imageUrl = ExtractUrl(response);
-
-            ImageDownloader.Instance.DownloadAndDisplayImage(entryData);
+            Debug.LogError(request.error);
         }
     }
 
-    private UnityWebRequest SetupRequest(string prompt)
+    private UnityWebRequest CreateDalleRequest(string prompt)
     {
-        string requestData = "{\"model\": \"dall-e-3\", " +
-                             "\"prompt\": \"" + prompt + "\", " +
-                             "\"n\": 1, " +
-                            "\"size\": \"1024x1024\"}";
-
-        UnityWebRequest request = UnityWebRequest.Post(apiURL, ""); // seconed argument is empty string, because the data will be sent as raw bytes in the request body
-        byte[] bodyRaw = Encoding.UTF8.GetBytes(requestData);
-        request.uploadHandler = new UploadHandlerRaw(bodyRaw); // uses raw to achieve greater control of data format (json), greater effeciency in data   transmission, and bypassing unity built-in serialization.
-        request.downloadHandler = new DownloadHandlerBuffer();
-
-        ManageMemory(request);
+        string requestData = CreateRequestData(prompt);
+        UnityWebRequest request = UnityWebRequest.Post(apiURL, "");
+        SetRequestBody(request, requestData);
         SetRequestHeaders(request);
+        ConfigureMemoryManagement(request);
+
         return request;
     }
 
-    private static void ManageMemory(UnityWebRequest request)
+    private void LoadConfiguration()
     {
-        request.disposeUploadHandlerOnDispose = true;
-        request.disposeCertificateHandlerOnDispose = true;
-        request.disposeDownloadHandlerOnDispose = true;
+        apiURL = ConfigLoader.Instance.LoadFromConfig("API_URL");
+        apiKey = ConfigLoader.Instance.LoadFromConfig("API_KEY");
     }
+
+    private static string CreateRequestData(string prompt)
+    {
+        return "{\"model\": \"dall-e-3\", " +
+               "\"prompt\": \"" + prompt + "\", " +
+               "\"n\": 1, " +
+               "\"size\": \"1024x1024\"}";
+    }
+
+    private static void SetRequestBody(UnityWebRequest request, string data)
+    {
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(data);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+    }
+
     private void SetRequestHeaders(UnityWebRequest request)
     {
         request.SetRequestHeader("Authorization", "Bearer " + apiKey);
         request.SetRequestHeader("Content-Type", "application/json");
     }
 
-    private string ExtractUrl(string jsonResponse)
+    private static void ConfigureMemoryManagement(UnityWebRequest request)
+    {
+        request.disposeUploadHandlerOnDispose = true;
+        request.disposeCertificateHandlerOnDispose = true;
+        request.disposeDownloadHandlerOnDispose = true;
+    }
+
+    private static bool IsRequestSuccessful(UnityWebRequest request)
+    {
+        return request.result != UnityWebRequest.Result.ConnectionError &&
+               request.result != UnityWebRequest.Result.DataProcessingError;
+    }
+
+    private void HandleSuccessfulRequest(UnityWebRequest request, string prompt)
+    {
+        string response = request.downloadHandler.text;
+        Debug.Log("Response: " + response);
+
+        string imageUrl = ExtractUrlFromResponse(response);
+        if (!string.IsNullOrEmpty(imageUrl))
+        {
+            var entryData = new EntryData { prompt = prompt, imageUrl = imageUrl };
+            ImageDownloader.Instance.DownloadAndDisplayImage(entryData);
+        }
+    }
+
+    private string ExtractUrlFromResponse(string jsonResponse)
     {
         DalleResponse response = JsonUtility.FromJson<DalleResponse>(jsonResponse);
-
-        string imageUrl = null;
         if (response != null && response.data != null && response.data.Length > 0)
         {
-            imageUrl = response.data[0].url;
-        }
-        else
-        {
-            Debug.LogError("Invalid response or no image URL found");
+            return response.data[0].url;
         }
 
-        return imageUrl;
-    }
-
-    [System.Serializable]
-    public class DalleResponse
-    {
-        public ImageData[] data; // uses array because multiple images can be returned if n > 1 (dalle-2)
-    }
-
-    [System.Serializable]
-    public class ImageData
-    {
-        public string url;
-    }
-
-    [System.Serializable]
-    public class EntryData
-    {
-        public string prompt;
-        public string imageUrl;
+        Debug.LogError("Invalid response or no image URL found");
+        return null;
     }
 }
