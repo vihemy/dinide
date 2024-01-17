@@ -3,42 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
-public class PromptInput : MonoBehaviour
+public class PromptInput : Singleton<PromptInput>
 {
     private string prompt;
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private EntryDisplayer entryDisplayer;
 
-    private void Awake()
+    private void Start()
     {
-        SelectInputField();
+        ResetInputField();
     }
 
     public void CreateEntryFromPrompt()
     {
         prompt = inputField.text;
-        Debug.Log(prompt);
         DalleAPIManager.Instance.RequestDalle(prompt);
-
-        // NewEntry();
-        ClearInputField();
-        SelectInputField();
+        Debug.Log(prompt);
+        ResetInputField();
     }
 
-    // public void NewEntry()
-    // {
-    //     string prompt = inputField.text;
-    //     entryDisplayer.CreateEntry(prompt);
-    // }
 
-    private void ClearInputField()
+    private void ResetInputField()
     {
         inputField.text = "";
-    }
-
-    private void SelectInputField()
-    {
         inputField.Select();
     }
 }
