@@ -2,8 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Text;
-using OpenAI;
-using OpenAI.Images;
 using UnityEngine.Assertions;
 
 public class DalleAPIManager : Singleton<DalleAPIManager>
@@ -17,20 +15,6 @@ public class DalleAPIManager : Singleton<DalleAPIManager>
         apiURL = ConfigLoader.Instance.LoadFromConfig("API_URL");
         apiKey = ConfigLoader.Instance.LoadFromConfig("API_KEY");
     }
-    // BRUG NEDENSTÅENDE PACKAGE I STEDET FOR AT LAVE EN WEB REQUEST, HVIS BEDRE. PT. 3 SEKUNDER LANGSOMMERE END WEB REQUEST
-    // public async void RequestDalle(string prompt)
-    // {
-    //     var api = new OpenAIClient();
-    //     var request = new ImageGenerationRequest(prompt, OpenAI.Models.Model.DallE_3);
-    //     var imageResults = await api.ImagesEndPoint.GenerateImageAsync(request);
-
-    //     foreach (var result in imageResults)
-    //     {
-    //         Debug.Log(result.ToString());
-    //         Assert.IsNotNull(result.Texture);
-    //     }
-    // }
-
 
     public void RequestDalle(string prompt)
     {
