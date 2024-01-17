@@ -2,12 +2,35 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Text;
+using OpenAI;
+using OpenAI.Images;
+using UnityEngine.Assertions;
 
 public class DalleAPIManager : Singleton<DalleAPIManager>
 {
     // Modified from this: https://community.openai.com/t/unity-request-to-openai-api-returns-empty-text/135714
-    private readonly string apiURL = "https://api.openai.com/v1/images/generations";
-    private readonly string apiKey = "***REMOVED***";
+    private string apiURL;
+    private string apiKey;
+
+    private void Start()
+    {
+        apiURL = ConfigLoader.Instance.LoadFromConfig("API_URL");
+        apiKey = ConfigLoader.Instance.LoadFromConfig("API_KEY");
+    }
+    // BRUG NEDENSTÅENDE PACKAGE I STEDET FOR AT LAVE EN WEB REQUEST, HVIS BEDRE. PT. 3 SEKUNDER LANGSOMMERE END WEB REQUEST
+    // public async void RequestDalle(string prompt)
+    // {
+    //     var api = new OpenAIClient();
+    //     var request = new ImageGenerationRequest(prompt, OpenAI.Models.Model.DallE_3);
+    //     var imageResults = await api.ImagesEndPoint.GenerateImageAsync(request);
+
+    //     foreach (var result in imageResults)
+    //     {
+    //         Debug.Log(result.ToString());
+    //         Assert.IsNotNull(result.Texture);
+    //     }
+    // }
+
 
     public void RequestDalle(string prompt)
     {
