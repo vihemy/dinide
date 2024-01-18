@@ -37,24 +37,36 @@ public class ImageDownloader : Singleton<ImageDownloader>
 
     private void ProcessDownloadedTexture(UnityWebRequest request, EntryData entry)
     {
-        Texture2D texture = DownloadHandlerTexture.GetContent(request);
-        entry.image = texture;
+        entry.image = DownloadHandlerTexture.GetContent(request);
         entryDisplayer.CreateAndDisplayEntry(entry);
-        SaveTextureAsJPG(entry); // Updated to save as JPG
+        SaveTextureAsJPG(entry); // Save image as JPG
+        SaveEntryDataAsJson(entry); // Save metadata as JSON
     }
 
-    private void SaveTextureAsJPG(EntryData entry) // Renamed method
+    private void SaveTextureAsJPG(EntryData entry)
     {
-        byte[] bytes = entry.image.EncodeToJPG(); // Encoding to JPG
-        string filePath = GenerateJPGFilePath(entry.prompt); // Updated method name
+        byte[] bytes = entry.image.EncodeToJPG();
+        string filePath = GenerateJPGFilePath(entry.prompt);
         File.WriteAllBytes(filePath, bytes);
         Debug.Log($"Saved image to: {filePath}");
     }
 
-    private string GenerateJPGFilePath(string filename) // Renamed method
+    private void SaveEntryDataAsJson(EntryData entry)
     {
-        filename = $"{filename}.jpg"; // Updated extension to JPG
-        return Path.Combine(Application.persistentDataPath, filename);
+        string json = JsonUtility.ToJson(entry);
+        string jsonFilePath = GenerateJsonFilePath(entry.prompt);
+        File.WriteAllText(jsonFilePath, json);
+        Debug.Log($"Saved metadata to: {jsonFilePath}");
+    }
+
+    private string GenerateJPGFilePath(string filename)
+    {
+        return Path.Combine(Application.persistentDataPath, $"{filename}.jpg");
+    }
+
+    private string GenerateJsonFilePath(string filename)
+    {
+        return Path.Combine(Application.persistentDataPath, $"{filename}.json");
     }
 
     private static bool IsWebRequestSuccessful(UnityWebRequest request)

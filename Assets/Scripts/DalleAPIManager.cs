@@ -62,13 +62,20 @@ public class DalleAPIManager : Singleton<DalleAPIManager>
         return request;
     }
 
+
     private void ProcessResponse(string jsonResponse, EntryData entry)
     {
-        string imageUrl = ExtractImageUrl(jsonResponse);
-        if (!string.IsNullOrEmpty(imageUrl))
+        DalleResponse response = JsonUtility.FromJson<DalleResponse>(jsonResponse);
+        if (response != null && response.data != null && response.data.Length > 0)
         {
-            entry.imageUrl = imageUrl;
+            entry.created = response.created;
+            entry.imageUrl = response.data[0].url;
+            entry.revisedPrompt = response.data[0].revised_prompt; // Extracting the enhanced prompt
             ImageDownloader.Instance.DownloadAndDisplayImage(entry);
+        }
+        else
+        {
+            Debug.LogError("Invalid response or no image URL found");
         }
     }
 

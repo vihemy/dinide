@@ -37,9 +37,9 @@ public class PromptInput : Singleton<PromptInput>
     {
         string prompt = promptInputField.text;
         string author = authorInputField.text;
-        int age = Convert.ToInt32(ageInputField.text);
+        string age = ageInputField.text;
 
-        EntryData entry = new EntryData(prompt, author, age);
+        EntryData entry = new EntryData(prompt, author, age); // OBS! Be carefull to fill out the appropriate fields in the EntryData constructor!
         return entry;
     }
 

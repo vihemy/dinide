@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -18,30 +19,44 @@ public class DalleRequestData
 [System.Serializable]
 public class DalleResponse
 {
-    public ImageData[] data;
+    public string created;
+    public ImageData[] data; // list used to support potential future multi-image requests
 }
 
 [System.Serializable]
 public class ImageData
 {
     public string url;
+    public string revised_prompt;
 }
 
 [System.Serializable]
 public class EntryData
 {
     public string prompt;
-    public string imageUrl;
-    public Texture2D image;
+    public string created; // unix time stamp formatted as string
     public string author;
-    public int age;
+    public string age;
+    public string imageUrl;
+    public string revisedPrompt;
+    public Texture2D image;
 
-    public EntryData(string prompt = null, string author = null, int age = 0, string imageUrl = null, Texture2D image = null)
+    public EntryData(
+    string prompt = null,
+    string author = null,
+    string age = null,
+    string created = null,
+    string imageUrl = null,
+    string revisedPrompt = null,
+    Texture2D image = null)
+
     {
         this.prompt = prompt;
         this.author = author;
         this.age = age;
+        this.created = created;
         this.imageUrl = imageUrl;
+        this.revisedPrompt = revisedPrompt;
         this.image = image;
     }
 }
