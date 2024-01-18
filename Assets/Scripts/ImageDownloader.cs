@@ -39,20 +39,20 @@ public class ImageDownloader : Singleton<ImageDownloader>
     {
         Texture2D texture = DownloadHandlerTexture.GetContent(request);
         entryDisplayer.CreateEntry(texture, entryData.prompt);
-        SaveTextureAsPNG(texture, entryData.prompt);
+        SaveTextureAsJPG(texture, entryData.prompt); // Updated to save as JPG
     }
 
-    private void SaveTextureAsPNG(Texture2D texture, string filename)
+    private void SaveTextureAsJPG(Texture2D texture, string filename) // Renamed method
     {
-        byte[] bytes = texture.EncodeToPNG();
-        string filePath = GeneratePNGFilePath(filename);
+        byte[] bytes = texture.EncodeToJPG(); // Encoding to JPG
+        string filePath = GenerateJPGFilePath(filename); // Updated method name
         File.WriteAllBytes(filePath, bytes);
         Debug.Log($"Saved image to: {filePath}");
     }
 
-    private string GeneratePNGFilePath(string filename)
+    private string GenerateJPGFilePath(string filename) // Renamed method
     {
-        filename = $"{filename}.png";
+        filename = $"{filename}.jpg"; // Updated extension to JPG
         return Path.Combine(Application.persistentDataPath, filename);
     }
 
