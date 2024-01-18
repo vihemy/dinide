@@ -18,14 +18,15 @@ public class EntryDisplayer : MonoBehaviour
 
     private void ReferenceAndHideTemplate()
     {
-        entryTemplate = entryContainer.transform.Find("EntryTemplate");
+        // entryTemplate = entryContainer.transform.Find("EntryTemplate");
+        entryTemplate = entryContainer.transform.Find("EntryTemplate2");
         entryTemplate.gameObject.SetActive(false);
     }
 
     public void CreateAndDisplayEntry(EntryData entry)
     {
         Transform displayedEntryTransform = CreateAndDisplayEntryTransform();
-        FillDisplayedEntry(displayedEntryTransform, entry.image, entry.prompt);
+        FillDisplayedEntry(displayedEntryTransform, entry.texture, entry.prompt);
     }
 
     private Transform CreateAndDisplayEntryTransform()

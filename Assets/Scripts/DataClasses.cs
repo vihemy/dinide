@@ -9,7 +9,6 @@ public class DalleRequestData
     public string prompt;
     public int n = 1;
     public string size = "1024x1024";
-
     public DalleRequestData(string prompt)
     {
         this.prompt = prompt;
@@ -39,7 +38,7 @@ public class EntryData
     public string age;
     public string imageUrl;
     public string revisedPrompt;
-    public Texture2D image;
+    public Texture2D texture;
 
     public EntryData(
     string prompt = null,
@@ -48,7 +47,7 @@ public class EntryData
     string created = null,
     string imageUrl = null,
     string revisedPrompt = null,
-    Texture2D image = null)
+    Texture2D texture = null)
 
     {
         this.prompt = prompt;
@@ -57,7 +56,7 @@ public class EntryData
         this.created = created;
         this.imageUrl = imageUrl;
         this.revisedPrompt = revisedPrompt;
-        this.image = image;
+        this.texture = texture;
     }
 }
 
