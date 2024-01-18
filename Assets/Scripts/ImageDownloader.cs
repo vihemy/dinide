@@ -4,43 +4,60 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-using static DalleAPIManager; // somehow cant reference EntryData without this namespace-decleration
 public class ImageDownloader : Singleton<ImageDownloader>
 {
-    public Image displayImage; // Assign this in the inspector with your UI Image
+    public Image displayImage; // Assign in the inspector
     [SerializeField] private EntryDisplayer entryDisplayer;
 
     public void DownloadAndDisplayImage(EntryData entryData)
     {
-        StartCoroutine(DownloadImage(entryData));
+        StartCoroutine(DownloadImageCoroutine(entryData));
     }
 
-    private IEnumerator DownloadImage(EntryData entryData)
+    private IEnumerator DownloadImageCoroutine(EntryData entryData)
     {
-        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(entryData.imageUrl))
+        using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(entryData.imageUrl))
         {
-            yield return uwr.SendWebRequest();
-
-            if (uwr.result == UnityWebRequest.Result.ConnectionError || uwr.result == UnityWebRequest.Result.ProtocolError)
-            {
-                Debug.LogError("Error While Sending: " + uwr.error);
-            }
-            else
-            {
-                // Get the downloaded image
-                Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
-                entryDisplayer.CreateEntry(texture, entryData.prompt);
-                SaveTextureAsPNG(texture, entryData.prompt);
-            }
+            yield return request.SendWebRequest();
+            HandleWebRequestResult(request, entryData);
         }
+    }
+
+    private void HandleWebRequestResult(UnityWebRequest request, EntryData entryData)
+    {
+        if (IsWebRequestSuccessful(request))
+        {
+            ProcessDownloadedTexture(request, entryData);
+        }
+        else
+        {
+            Debug.LogError($"Error downloading image {entryData.prompt}: {request.error}");
+        }
+    }
+
+    private void ProcessDownloadedTexture(UnityWebRequest request, EntryData entryData)
+    {
+        Texture2D texture = DownloadHandlerTexture.GetContent(request);
+        entryDisplayer.CreateEntry(texture, entryData.prompt);
+        SaveTextureAsPNG(texture, entryData.prompt);
     }
 
     private void SaveTextureAsPNG(Texture2D texture, string filename)
     {
         byte[] bytes = texture.EncodeToPNG();
-        filename = filename + ".png";
-        var filePath = Path.Combine(Application.persistentDataPath, filename);
+        string filePath = GeneratePNGFilePath(filename);
         File.WriteAllBytes(filePath, bytes);
-        Debug.Log("Saved image to: " + filePath);
+        Debug.Log($"Saved image to: {filePath}");
+    }
+
+    private string GeneratePNGFilePath(string filename)
+    {
+        filename = $"{filename}.png";
+        return Path.Combine(Application.persistentDataPath, filename);
+    }
+
+    private static bool IsWebRequestSuccessful(UnityWebRequest request)
+    {
+        return request.result == UnityWebRequest.Result.Success;
     }
 }
