@@ -1,3 +1,6 @@
+using UnityEditor.PackageManager;
+using UnityEngine;
+
 [System.Serializable]
 public class DalleRequestData
 {
@@ -29,4 +32,17 @@ public class EntryData
 {
     public string prompt;
     public string imageUrl;
+    public Texture2D image;
+    public string author;
+    public int age;
+
+    public EntryData(string prompt = null, string author = null, int age = 0, string imageUrl = null, Texture2D image = null)
+    {
+        this.prompt = prompt;
+        this.author = author;
+        this.age = age;
+        this.imageUrl = imageUrl;
+        this.image = image;
+    }
 }
+

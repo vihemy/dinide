@@ -9,43 +9,44 @@ public class ImageDownloader : Singleton<ImageDownloader>
     public Image displayImage; // Assign in the inspector
     [SerializeField] private EntryDisplayer entryDisplayer;
 
-    public void DownloadAndDisplayImage(EntryData entryData)
+    public void DownloadAndDisplayImage(EntryData entry)
     {
-        StartCoroutine(DownloadImageCoroutine(entryData));
+        StartCoroutine(DownloadImageCoroutine(entry));
     }
 
-    private IEnumerator DownloadImageCoroutine(EntryData entryData)
+    private IEnumerator DownloadImageCoroutine(EntryData entry)
     {
-        using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(entryData.imageUrl))
+        using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(entry.imageUrl))
         {
             yield return request.SendWebRequest();
-            HandleWebRequestResult(request, entryData);
+            HandleWebRequestResult(request, entry);
         }
     }
 
-    private void HandleWebRequestResult(UnityWebRequest request, EntryData entryData)
+    private void HandleWebRequestResult(UnityWebRequest request, EntryData entry)
     {
         if (IsWebRequestSuccessful(request))
         {
-            ProcessDownloadedTexture(request, entryData);
+            ProcessDownloadedTexture(request, entry);
         }
         else
         {
-            Debug.LogError($"Error downloading image {entryData.prompt}: {request.error}");
+            Debug.LogError($"Error downloading image {entry.prompt}: {request.error}");
         }
     }
 
-    private void ProcessDownloadedTexture(UnityWebRequest request, EntryData entryData)
+    private void ProcessDownloadedTexture(UnityWebRequest request, EntryData entry)
     {
         Texture2D texture = DownloadHandlerTexture.GetContent(request);
-        entryDisplayer.CreateEntry(texture, entryData.prompt);
-        SaveTextureAsJPG(texture, entryData.prompt); // Updated to save as JPG
+        entry.image = texture;
+        entryDisplayer.CreateAndDisplayEntry(entry);
+        SaveTextureAsJPG(entry); // Updated to save as JPG
     }
 
-    private void SaveTextureAsJPG(Texture2D texture, string filename) // Renamed method
+    private void SaveTextureAsJPG(EntryData entry) // Renamed method
     {
-        byte[] bytes = texture.EncodeToJPG(); // Encoding to JPG
-        string filePath = GenerateJPGFilePath(filename); // Updated method name
+        byte[] bytes = entry.image.EncodeToJPG(); // Encoding to JPG
+        string filePath = GenerateJPGFilePath(entry.prompt); // Updated method name
         File.WriteAllBytes(filePath, bytes);
         Debug.Log($"Saved image to: {filePath}");
     }

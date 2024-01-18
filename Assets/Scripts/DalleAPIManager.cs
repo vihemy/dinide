@@ -15,7 +15,7 @@ public class DalleAPIManager : Singleton<DalleAPIManager>
         apiKey = ConfigLoader.Instance.LoadFromConfig("API_KEY");
     }
 
-    public void RequestDalle(string prompt)
+    public void RequestDalle(EntryData entry)
     {
         if (isRequesting)
         {
@@ -23,19 +23,19 @@ public class DalleAPIManager : Singleton<DalleAPIManager>
         }
         else
         {
-            StartCoroutine(SendDalleRequestCoroutine(prompt));
+            StartCoroutine(SendDalleRequestCoroutine(entry));
         }
     }
 
-    private IEnumerator SendDalleRequestCoroutine(string prompt)
+    private IEnumerator SendDalleRequestCoroutine(EntryData entry)
     {
         isRequesting = true;
-        UnityWebRequest request = CreateDalleWebRequest(prompt);
+        UnityWebRequest request = CreateDalleWebRequest(entry.prompt);
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            ProcessResponse(request.downloadHandler.text, prompt);
+            ProcessResponse(request.downloadHandler.text, entry);
         }
         else
         {
@@ -62,13 +62,13 @@ public class DalleAPIManager : Singleton<DalleAPIManager>
         return request;
     }
 
-    private void ProcessResponse(string jsonResponse, string prompt)
+    private void ProcessResponse(string jsonResponse, EntryData entry)
     {
         string imageUrl = ExtractImageUrl(jsonResponse);
         if (!string.IsNullOrEmpty(imageUrl))
         {
-            var entryData = new EntryData { prompt = prompt, imageUrl = imageUrl };
-            ImageDownloader.Instance.DownloadAndDisplayImage(entryData);
+            entry.imageUrl = imageUrl;
+            ImageDownloader.Instance.DownloadAndDisplayImage(entry);
         }
     }
 

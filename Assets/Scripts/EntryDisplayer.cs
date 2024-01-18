@@ -22,31 +22,25 @@ public class EntryDisplayer : MonoBehaviour
         entryTemplate.gameObject.SetActive(false);
     }
 
-    public void CreateEntry(Texture2D texture, string prompt)
+    public void CreateAndDisplayEntry(EntryData entry)
     {
-        Transform entryTransform = CreateEntryTransform();
-        FillEntry(entryTransform, texture, prompt);
+        Transform displayedEntryTransform = CreateAndDisplayEntryTransform();
+        FillDisplayedEntry(displayedEntryTransform, entry.image, entry.prompt);
     }
 
-    private Transform CreateEntryTransform()
+    private Transform CreateAndDisplayEntryTransform()
     {
-        Transform entryTransform = Instantiate(entryTemplate, entryContainer);
-        entryTransform.gameObject.SetActive(true);
-        return entryTransform;
+        Transform displayedEntryTransform = Instantiate(entryTemplate, entryContainer);
+        displayedEntryTransform.gameObject.SetActive(true);
+        return displayedEntryTransform;
     }
 
-    private void FillEntry(Transform entryTransform, Texture2D texture, string prompt)
+    private void FillDisplayedEntry(Transform displayedEntryTransform, Texture2D texture, string prompt)
     {
-        entryTransform.Find("Text").GetComponent<TextMeshProUGUI>().text = prompt;
+        displayedEntryTransform.Find("Text").GetComponent<TextMeshProUGUI>().text = prompt;
         var rect = new Rect(0, 0, texture.width, texture.height);
         var sprite = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f), 100);
-        entryTransform.Find("Image").GetComponent<Image>().sprite = sprite;
+        displayedEntryTransform.Find("Image").GetComponent<Image>().sprite = sprite;
     }
 
-    [System.Serializable]
-    public class EntryData
-    {
-        public string prompt;
-        public string image;
-    }
 }
