@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
 
-public class EntryDisplayer : MonoBehaviour
+public class EntryDisplayer : Singleton<EntryDisplayer>
 {
     private Transform entryContainer;
     private Transform entryTemplate;
 
-    private void Awake()
+    new private void Awake()
     {
         entryContainer = this.transform;
         ReferenceAndHideTemplate();
@@ -23,24 +23,26 @@ public class EntryDisplayer : MonoBehaviour
         entryTemplate.gameObject.SetActive(false);
     }
 
-    public void CreateAndDisplayEntry(EntryData entry)
+    public void CreateEntryDisplay(EntryData entry)
     {
-        Transform displayedEntryTransform = CreateAndDisplayEntryTransform();
-        FillDisplayedEntry(displayedEntryTransform, entry.texture, entry.prompt);
+        Transform displayedEntryTransform = CreateEntryTransform();
+        FillDisplayedEntry(displayedEntryTransform, entry);
     }
 
-    private Transform CreateAndDisplayEntryTransform()
+    private Transform CreateEntryTransform()
     {
         Transform displayedEntryTransform = Instantiate(entryTemplate, entryContainer);
         displayedEntryTransform.gameObject.SetActive(true);
         return displayedEntryTransform;
     }
 
-    private void FillDisplayedEntry(Transform displayedEntryTransform, Texture2D texture, string prompt)
+    private void FillDisplayedEntry(Transform displayedEntryTransform, EntryData entry)
     {
-        displayedEntryTransform.Find("Text").GetComponent<TextMeshProUGUI>().text = prompt;
-        var rect = new Rect(0, 0, texture.width, texture.height);
-        var sprite = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f), 100);
+        displayedEntryTransform.Find("Prompt").GetComponent<TextMeshProUGUI>().text = entry.prompt;
+        displayedEntryTransform.Find("Name, age").GetComponent<TextMeshProUGUI>().text = entry.author + ", " + entry.age;
+
+        var rect = new Rect(0, 0, entry.texture.width, entry.texture.height);
+        var sprite = Sprite.Create(entry.texture, rect, new Vector2(0.5f, 0.5f), 100);
         displayedEntryTransform.Find("Image").GetComponent<Image>().sprite = sprite;
     }
 
