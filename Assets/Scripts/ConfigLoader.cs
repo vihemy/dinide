@@ -6,7 +6,7 @@ public class ConfigLoader : Singleton<ConfigLoader>
 {
     private Dictionary<string, string> configValues;
 
-    void Start()
+    new void Awake() // needs to run before LoadFromConfig is called
     {
         LoadConfig();
     }
