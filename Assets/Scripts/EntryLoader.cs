@@ -5,11 +5,14 @@ using UnityEngine.UI;
 using TMPro;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 public class EntryLoader : Singleton<EntryLoader>
 {
+    [SerializeField] private Logger logger;
     public void LoadLatestEntries()
     {
+        Log("Loading entries...");
         int maxEntries = EntryCache.Instance.maxEntries;
         string folderPath = Application.persistentDataPath;
         DirectoryInfo directoryInfo = new DirectoryInfo(folderPath);
@@ -27,6 +30,7 @@ public class EntryLoader : Singleton<EntryLoader>
             EntryData entryData = LoadJsonAndImageIntoEntry(jsonPath, imagePath);
             AddToCache(entryData);
         }
+        Log($"Loaded {EntryCache.Instance.entries.Count} entries");
     }
 
     private EntryData LoadJsonAndImageIntoEntry(string jsonPath, string imagePath)
@@ -82,5 +86,10 @@ public class EntryLoader : Singleton<EntryLoader>
         {
             Debug.LogWarning("Entry data or texture is null");
         }
+    }
+
+    private void Log(object message)
+    {
+        logger.Log(message);
     }
 }
