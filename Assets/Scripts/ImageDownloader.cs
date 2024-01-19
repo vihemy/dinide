@@ -38,7 +38,8 @@ public class ImageDownloader : Singleton<ImageDownloader>
     private void ProcessDownloadedTexture(UnityWebRequest request, EntryData entry)
     {
         entry.texture = DownloadHandlerTexture.GetContent(request);
-        entryDisplayer.CreateEntryDisplay(entry);
+        // entryDisplayer.CreateEntryDisplay(entry);
+        AddToCache(entry);
         SaveTextureAsJPG(entry); // Save image as JPG
         SaveEntryDataAsJson(entry); // Save metadata as JSON
     }
@@ -67,6 +68,19 @@ public class ImageDownloader : Singleton<ImageDownloader>
     private string GenerateJsonFilePath(string filename)
     {
         return Path.Combine(Application.persistentDataPath, $"{filename}.json");
+    }
+
+    private static void AddToCache(EntryData entryData)
+    {
+        if (entryData != null && entryData.texture != null)
+        {
+            EntryCache.Instance.AddEntry(entryData);
+        }
+        else
+        {
+            Debug.LogWarning("Entry data or texture is null");
+        }
+
     }
 
     private static bool IsWebRequestSuccessful(UnityWebRequest request)

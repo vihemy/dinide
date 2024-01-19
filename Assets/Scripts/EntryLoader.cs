@@ -7,7 +7,7 @@ using System.IO;
 
 public class EntryLoader : Singleton<EntryLoader>
 {
-    private void Start()
+    new private void Awake()
     {
         LoadAllEntries();
     }
@@ -23,7 +23,8 @@ public class EntryLoader : Singleton<EntryLoader>
             string jsonPath = file.FullName;
             string imagePath = Path.ChangeExtension(jsonPath, ".jpg");
             EntryData entryData = LoadJsonAndImageIntoEntry(jsonPath, imagePath);
-            DisplayEntry(entryData);
+            // DisplayEntry(entryData);
+            AddToCache(entryData);
         }
     }
 
@@ -56,6 +57,19 @@ public class EntryLoader : Singleton<EntryLoader>
         }
         Debug.LogWarning("Image file not found: " + imagePath);
         return null;
+    }
+
+    private static void AddToCache(EntryData entryData)
+    {
+        if (entryData != null && entryData.texture != null)
+        {
+            EntryCache.Instance.AddEntry(entryData);
+        }
+        else
+        {
+            Debug.LogWarning("Entry data or texture is null");
+        }
+
     }
 
     private void DisplayEntry(EntryData entryData)
