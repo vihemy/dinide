@@ -5,17 +5,12 @@ using UnityEngine.UI;
 using TMPro;
 using System.IO;
 using System.Linq;
-using Unity.VisualScripting;
 
 public class EntryLoader : Singleton<EntryLoader>
 {
-    new private void Awake()
+    public void LoadLatestEntries()
     {
-        LoadLatestEntries(EntryCache.Instance.maxEntries);
-    }
-
-    private void LoadLatestEntries(int maxEntries)
-    {
+        int maxEntries = EntryCache.Instance.maxEntries;
         string folderPath = Application.persistentDataPath;
         DirectoryInfo directoryInfo = new DirectoryInfo(folderPath);
         FileInfo[] jsonFiles = directoryInfo.GetFiles("*.json");

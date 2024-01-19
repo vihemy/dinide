@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class ImageDownloader : Singleton<ImageDownloader>
 {
-    public Image displayImage; // Assign in the inspector
-    [SerializeField] private EntryDisplayer entryDisplayer;
-
     public void DownloadAndDisplayImage(EntryData entry)
     {
         StartCoroutine(DownloadImageCoroutine(entry));
@@ -79,7 +76,6 @@ public class ImageDownloader : Singleton<ImageDownloader>
         {
             Debug.LogWarning("Entry data or texture is null");
         }
-
     }
 
     private static bool IsWebRequestSuccessful(UnityWebRequest request)

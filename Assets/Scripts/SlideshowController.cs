@@ -13,7 +13,7 @@ public class SlideshowController : Singleton<SlideshowController>
     private int currentIndex = 0;
     private Coroutine slideshowCoroutine;
 
-    new private void Awake()
+    public void InstantiateSlideshow()
     {
         slideshowCoroutine = StartCoroutine(DisplaySlideshow());
     }
