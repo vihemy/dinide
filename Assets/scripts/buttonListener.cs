@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class buttonListener : MonoBehaviour
+public class ButtonListener : MonoBehaviour
 {
     private Button button => GetComponent<Button>();
     // Start is called before the first frame update
