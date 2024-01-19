@@ -3,7 +3,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class DalleAPIManager : Singleton<DalleAPIManager>
+public class DalleAPICaller : Singleton<DalleAPICaller>
 {
     private string apiURL;
     private string apiKey;
