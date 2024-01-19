@@ -70,7 +70,6 @@ public class EntryLoader : Singleton<EntryLoader>
         {
             Debug.LogWarning("Entry data or texture is null");
         }
-
     }
 
     private void DisplayEntry(EntryData entryData)
