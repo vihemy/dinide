@@ -12,7 +12,7 @@ public class GameManager : Singleton<GameManager>
 
     void InstantiateEntrySystem()
     {
+        SlideshowController.Instance.InstantiateSlideshow(); // slideshow needs to be instantiated before entries are loaded
         EntryLoader.Instance.LoadLatestEntries();
-        SlideshowController.Instance.InstantiateSlideshow();
     }
 }
