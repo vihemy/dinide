@@ -9,7 +9,13 @@ using System.Runtime.CompilerServices;
 
 public class EntryLoader : Singleton<EntryLoader>
 {
-    [SerializeField] private Logger logger;
+    private Logger logger;
+
+    new void Awake()
+    {
+        logger = Logger.Instance;
+    }
+
     public void LoadLatestEntries()
     {
         Log("Loading entries...");

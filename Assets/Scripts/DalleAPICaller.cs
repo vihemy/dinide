@@ -8,6 +8,12 @@ public class DalleAPICaller : Singleton<DalleAPICaller>
     private string apiURL;
     private string apiKey;
     private bool isRequesting = false;
+    private Logger logger;
+
+    new void Awake()
+    {
+        logger = Logger.Instance;
+    }
 
     private void Start()
     {

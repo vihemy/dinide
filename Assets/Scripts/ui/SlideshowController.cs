@@ -12,6 +12,12 @@ public class SlideshowController : Singleton<SlideshowController>
     public float displayDuration = 5f;
     private int currentIndex = 0;
     private Coroutine slideshowCoroutine;
+    private Logger logger;
+
+    new void Awake()
+    {
+        logger = Logger.Instance;
+    }
 
     public void InstantiateSlideshow()
     {

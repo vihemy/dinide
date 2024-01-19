@@ -10,10 +10,13 @@ public class EntryDisplayer : Singleton<EntryDisplayer>
     private Transform entryContainer;
     private Transform entryTemplate;
 
+    private Logger logger;
+
     new private void Awake()
     {
         entryContainer = this.transform;
         ReferenceAndHideTemplate();
+        logger = Logger.Instance;
     }
 
     private void ReferenceAndHideTemplate()

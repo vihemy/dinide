@@ -6,6 +6,14 @@ using UnityEngine.UI;
 
 public class ImageDownloader : Singleton<ImageDownloader>
 {
+
+    private Logger logger;
+
+    new void Awake()
+    {
+        logger = Logger.Instance;
+    }
+
     public void DownloadImage(EntryData entry)
     {
         StartCoroutine(DownloadImageCoroutine(entry));

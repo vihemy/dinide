@@ -7,6 +7,13 @@ public class EntryCache : Singleton<EntryCache>
     public List<EntryData> entries = new List<EntryData>();
     public int maxEntries = 10; // Set your desired maximum size
 
+    private Logger logger;
+
+    new void Awake()
+    {
+        logger = Logger.Instance;
+    }
+
     public void AddEntry(EntryData entry)
     {
         if (entries.Count >= maxEntries)
