@@ -26,7 +26,7 @@ public class PromptInput : Singleton<PromptInput>
         else
         {
             EntryData entry = CreateEntryData();
-            DalleAPIManager.Instance.RequestDalle(entry);
+            DalleAPICaller.Instance.RequestDalle(entry);
             Debug.Log(entry.prompt + " " + entry.author + " " + entry.age);
             ResetInputField();
         }
