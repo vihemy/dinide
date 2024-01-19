@@ -11,7 +11,6 @@ public class PromptInput : Singleton<PromptInput>
     [SerializeField] private TMP_InputField promptInputField;
     [SerializeField] private TMP_InputField authorInputField;
     [SerializeField] private TMP_InputField ageInputField;
-    [SerializeField] private EntryDisplayer entryDisplayer;
 
     private void Start()
     {
