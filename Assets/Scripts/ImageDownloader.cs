@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ImageDownloader : Singleton<ImageDownloader>
 {
-    public void DownloadAndDisplayImage(EntryData entry)
+    public void DownloadImage(EntryData entry)
     {
         StartCoroutine(DownloadImageCoroutine(entry));
     }

@@ -71,7 +71,7 @@ public class DalleAPIManager : Singleton<DalleAPIManager>
             entry.created = response.created;
             entry.imageUrl = response.data[0].url;
             entry.revisedPrompt = response.data[0].revised_prompt; // Extracting the enhanced prompt
-            ImageDownloader.Instance.DownloadAndDisplayImage(entry);
+            ImageDownloader.Instance.DownloadImage(entry);
         }
         else
         {
