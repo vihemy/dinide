@@ -38,7 +38,6 @@ public class ImageDownloader : Singleton<ImageDownloader>
     private void ProcessDownloadedTexture(UnityWebRequest request, EntryData entry)
     {
         entry.texture = DownloadHandlerTexture.GetContent(request);
-        // entryDisplayer.CreateEntryDisplay(entry);
         AddToCache(entry);
         SaveTextureAsJPG(entry); // Save image as JPG
         SaveEntryDataAsJson(entry); // Save metadata as JSON

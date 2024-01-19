@@ -4,26 +4,32 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.IO;
+using System.Linq;
+using Unity.VisualScripting;
 
 public class EntryLoader : Singleton<EntryLoader>
 {
     new private void Awake()
     {
-        LoadAllEntries();
+        LoadLatestEntries(EntryCache.Instance.maxEntries);
     }
 
-    private void LoadAllEntries()
+    private void LoadLatestEntries(int maxEntries)
     {
         string folderPath = Application.persistentDataPath;
         DirectoryInfo directoryInfo = new DirectoryInfo(folderPath);
         FileInfo[] jsonFiles = directoryInfo.GetFiles("*.json");
 
-        foreach (FileInfo file in jsonFiles)
+        // Sort the files by last write time (most recent first)
+        var sortedFiles = jsonFiles.OrderByDescending(file => file.LastWriteTime).ToArray();
+
+        // Load only the number of entries specified in EntryCache.MaxEntries
+        for (int i = 0; i < Mathf.Min(sortedFiles.Length, maxEntries); i++)
         {
+            FileInfo file = sortedFiles[i];
             string jsonPath = file.FullName;
             string imagePath = Path.ChangeExtension(jsonPath, ".jpg");
             EntryData entryData = LoadJsonAndImageIntoEntry(jsonPath, imagePath);
-            // DisplayEntry(entryData);
             AddToCache(entryData);
         }
     }
