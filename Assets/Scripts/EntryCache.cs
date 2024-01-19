@@ -9,6 +9,7 @@ public class EntryCache : Singleton<EntryCache>
     public void AddEntry(EntryData entry)
     {
         entries.Add(entry);
+        SlideshowController.Instance.UpdateAndDisplayNewEntry(entry);
     }
 
     public void RemoveEntry(EntryData entry)

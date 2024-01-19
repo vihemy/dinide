@@ -4,29 +4,45 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 
-public class SlideshowController : MonoBehaviour
+public class SlideshowController : Singleton<SlideshowController>
 {
     public Image imageDisplay;
     public TextMeshProUGUI promptText;
     public TextMeshProUGUI authorInfoText;
     public float displayDuration = 5f;
     private int currentIndex = 0;
+    private Coroutine slideshowCoroutine;
 
-    private void Start()
+    new private void Awake()
     {
-        StartCoroutine(DisplaySlideshow());
+        slideshowCoroutine = StartCoroutine(DisplaySlideshow());
     }
 
     private IEnumerator DisplaySlideshow()
     {
         List<EntryData> entries = EntryCache.Instance.entries;
-        while (entries.Count > 0)
+
+        while (true)
         {
-            EntryData currentEntry = entries[currentIndex];
-            DisplayEntry(currentEntry);
-            yield return new WaitForSeconds(displayDuration);
-            currentIndex = (currentIndex + 1) % entries.Count;
+            if (entries.Count > 0)
+            {
+                DisplayEntry(entries[currentIndex]);
+                currentIndex = (currentIndex + 1) % entries.Count;
+                yield return new WaitForSeconds(displayDuration);
+            }
+            else
+            {
+                yield return null; // Wait for next frame if no entries
+            }
         }
+    }
+
+    public void UpdateAndDisplayNewEntry(EntryData newEntry)
+    {
+        StopCoroutine(slideshowCoroutine); // Stop the current slideshow
+        currentIndex = EntryCache.Instance.entries.IndexOf(newEntry);
+        DisplayEntry(newEntry);
+        slideshowCoroutine = StartCoroutine(DisplaySlideshow()); // Restart the slideshow
     }
 
     private void DisplayEntry(EntryData entryData)
