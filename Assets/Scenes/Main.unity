@@ -1906,6 +1906,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1392791540}
   m_CullTransparentMesh: 1
+--- !u!1 &1517722788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1517722790}
+  - component: {fileID: 1517722789}
+  m_Layer: 0
+  m_Name: ProfanityFilter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1517722789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517722788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e985d3eaa32833f47abd4efc3f46325f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  englishProfanityList: {fileID: 4900000, guid: a988848ff0d1fc64f8064edd2ccc88d3, type: 3}
+  danishProfanityList: {fileID: 4900000, guid: 5bfe35836df59744f90e37d0e699f9dc, type: 3}
+  germanProfanityList: {fileID: 4900000, guid: f04f467a64b066a42851bc5b7e38f6cc, type: 3}
+--- !u!4 &1517722790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517722788}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1519077532
 GameObject:
   m_ObjectHideFlags: 0

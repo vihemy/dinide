@@ -12,18 +12,14 @@ public class PromptInput : Singleton<PromptInput>
     [SerializeField] private TMP_InputField authorInputField;
     [SerializeField] private TMP_InputField ageInputField;
 
-    private void Start()
+    void Start()
     {
         ResetInputField();
     }
 
     public void CreateEntryFromPrompt()
     {
-        if (CheckForEmptyFields())
-        {
-            Debug.Log("Please fill out all fields");
-        }
-        else
+        if (!AreFieldsEmptyOrProfane())
         {
             EntryData entry = CreateEntryData();
             DalleAPICaller.Instance.RequestDalle(entry);
@@ -42,9 +38,39 @@ public class PromptInput : Singleton<PromptInput>
         return entry;
     }
 
-    private bool CheckForEmptyFields()
+    private bool AreFieldsEmptyOrProfane()
+    {
+        if (IsFieldEmpty())
+        {
+            Debug.Log("Please fill out all fields");
+            return true;
+        }
+        else if (ContainsProfanity(promptInputField.text))
+        {
+            Debug.Log("Prompt input field contains profanity");
+            return true;
+        }
+        else if (ContainsProfanity(authorInputField.text))
+        {
+            Debug.Log("Author input field contains profanity");
+            return true;
+        }
+        else if (ContainsProfanity(ageInputField.text))
+        {
+            Debug.Log("Age input field contains profanity");
+            return true;
+        }
+        return false;
+    }
+
+    private bool IsFieldEmpty()
     {
         return string.IsNullOrEmpty(promptInputField.text) || string.IsNullOrEmpty(authorInputField.text) || string.IsNullOrEmpty(ageInputField.text);
+    }
+
+    private bool ContainsProfanity(string input)
+    {
+        return ProfanityFilter.Instance.ContainsProfanity(input);
     }
 
     private void ResetInputField()
