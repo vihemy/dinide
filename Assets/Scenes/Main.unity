@@ -1935,8 +1935,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e985d3eaa32833f47abd4efc3f46325f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  englishProfanityList: {fileID: 4900000, guid: a988848ff0d1fc64f8064edd2ccc88d3, type: 3}
   danishProfanityList: {fileID: 4900000, guid: 5bfe35836df59744f90e37d0e699f9dc, type: 3}
+  englishProfanityList: {fileID: 4900000, guid: a988848ff0d1fc64f8064edd2ccc88d3, type: 3}
   germanProfanityList: {fileID: 4900000, guid: f04f467a64b066a42851bc5b7e38f6cc, type: 3}
 --- !u!4 &1517722790
 Transform:
