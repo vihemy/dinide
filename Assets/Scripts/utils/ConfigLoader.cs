@@ -1,26 +1,29 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class ConfigLoader : Singleton<ConfigLoader>
 {
     private Dictionary<string, string> configValues;
 
-    new void Awake() // needs to run before LoadFromConfig is called
+    new void Awake()
     {
         LoadConfig();
     }
 
     private void LoadConfig()
     {
-        TextAsset configFile = Resources.Load<TextAsset>("config");
-        if (configFile == null)
+        string configFilePath = Path.Combine(Application.streamingAssetsPath, "config.txt");
+
+        if (!File.Exists(configFilePath))
         {
-            Debug.LogError("Config file not found in Resources");
+            Debug.LogError("Config file not found in StreamingAssets");
             return;
         }
 
         configValues = new Dictionary<string, string>();
-        string[] lines = configFile.text.Split('\n');
+
+        string[] lines = File.ReadAllLines(configFilePath);
         foreach (string line in lines)
         {
             if (!string.IsNullOrWhiteSpace(line) && line.Contains("="))

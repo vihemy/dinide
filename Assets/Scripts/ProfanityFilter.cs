@@ -5,25 +5,23 @@ using UnityEngine;
 
 public class ProfanityFilter : Singleton<ProfanityFilter>
 {
-    [SerializeField] private TextAsset danishProfanityList;
-    [SerializeField] private TextAsset englishProfanityList;
-    [SerializeField] private TextAsset germanProfanityList;
-
     private HashSet<string> profanityWords;
 
     void Start()
     {
         profanityWords = new HashSet<string>();
-        LoadProfanityWords(englishProfanityList);
-        LoadProfanityWords(danishProfanityList);
-        LoadProfanityWords(germanProfanityList);
+        LoadProfanityWords("da.txt");
+        LoadProfanityWords("en.txt");
+        LoadProfanityWords("de.txt");
     }
 
-    private void LoadProfanityWords(TextAsset profanityList)
+    private void LoadProfanityWords(string fileName)
     {
-        if (profanityList != null)
+        string fullPath = Path.Combine(Application.streamingAssetsPath, fileName);
+
+        if (File.Exists(fullPath))
         {
-            string[] lines = profanityList.text.Split('\n');
+            string[] lines = File.ReadAllLines(fullPath);
             foreach (string line in lines)
             {
                 profanityWords.Add(line.Trim().ToLower());
@@ -31,7 +29,7 @@ public class ProfanityFilter : Singleton<ProfanityFilter>
         }
         else
         {
-            Debug.LogWarning("Profanity list asset is null");
+            Debug.LogWarning($"Profanity list file not found at {fullPath}");
         }
     }
 
