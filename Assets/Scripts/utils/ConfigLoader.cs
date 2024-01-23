@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class ConfigLoader : Singleton<ConfigLoader>
@@ -13,16 +12,15 @@ public class ConfigLoader : Singleton<ConfigLoader>
 
     private void LoadConfig()
     {
-        string path = Path.Combine(Application.dataPath, "config.txt");
-        configValues = new Dictionary<string, string>();
-
-        if (!File.Exists(path))
+        TextAsset configFile = Resources.Load<TextAsset>("config");
+        if (configFile == null)
         {
-            Debug.LogError("Config file not found");
+            Debug.LogError("Config file not found in Resources");
             return;
         }
 
-        string[] lines = File.ReadAllLines(path);
+        configValues = new Dictionary<string, string>();
+        string[] lines = configFile.text.Split('\n');
         foreach (string line in lines)
         {
             if (!string.IsNullOrWhiteSpace(line) && line.Contains("="))
