@@ -6,7 +6,7 @@ using TMPro;
 using System;
 using System.Runtime.CompilerServices;
 
-public class PromptInput : Singleton<PromptInput>
+public class PromptManager : Singleton<PromptManager>
 {
     [SerializeField] private TMP_InputField promptInputField;
     [SerializeField] private TMP_InputField authorInputField;

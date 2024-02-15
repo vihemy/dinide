@@ -18,7 +18,7 @@ public class ButtonListener : MonoBehaviour
 
     public void OnButtonPress()
     {
-        PromptInput.Instance.CreateEntryFromPrompt();
+        PromptManager.Instance.CreateEntryFromPrompt();
     }
 
     public void MakeInteractable(bool state)
