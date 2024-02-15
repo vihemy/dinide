@@ -17,6 +17,14 @@ public class PromptInput : Singleton<PromptInput>
         ResetInputField();
     }
 
+    private void ResetInputField()
+    {
+        promptInputField.text = "";
+        authorInputField.text = "";
+        ageInputField.text = "";
+        promptInputField.Select();
+    }
+
     public void CreateEntryFromPrompt()
     {
         if (!AreFieldsEmptyOrProfane())
@@ -73,11 +81,4 @@ public class PromptInput : Singleton<PromptInput>
         return ProfanityFilter.Instance.ContainsProfanity(input);
     }
 
-    private void ResetInputField()
-    {
-        promptInputField.text = "";
-        authorInputField.text = "";
-        ageInputField.text = "";
-        promptInputField.Select();
-    }
 }
