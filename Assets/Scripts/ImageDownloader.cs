@@ -33,6 +33,7 @@ public class ImageDownloader : Singleton<ImageDownloader>
         if (IsWebRequestSuccessful(request))
         {
             ProcessDownloadedTexture(request, entry);
+            GameManager.Instance.OnFinishProcessing();
         }
         else
         {
