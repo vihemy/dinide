@@ -4,7 +4,17 @@ using UnityEngine;
 
 public class InputState : IState
 {
-    public void Enter() { /* Logic to execute when entering the idle state */ }
-    public void Execute() { /* Logic to update during the idle state */ }
-    public void Exit() { /* Logic to execute when exiting the idle state */ }
+    public void Enter()
+    {
+        UIManager.Instance.EnableInputState(true);
+        UIManager.Instance.LockInputPanel(false);
+    }
+    public void Execute()
+    {
+
+    }
+    public void Exit()
+    {
+        UIManager.Instance.LockInputPanel(true);
+    }
 }

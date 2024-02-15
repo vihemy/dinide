@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class ProcessingState : IState
 {
-    public void Enter() { /* Logic to execute when entering the idle state */ }
+    public void Enter()
+    {
+        DashboardManager.Instance.StartDashBoard();
+    }
     public void Execute() { /* Logic to update during the idle state */ }
-    public void Exit() { /* Logic to execute when exiting the idle state */ }
+    public void Exit()
+    {
+        DashboardManager.Instance.StopDashBoard();
+    }
 }

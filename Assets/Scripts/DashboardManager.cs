@@ -3,16 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class DashboardManager : Singleton<DashboardManager>
 {
+    [SerializeField] private TextMeshProUGUI statusText;
+
+    public void IdleDashBoard()
+    {
+        statusText.text = "Venter på idé";
+    }
+
     public void StartDashBoard()
     {
-        Debug.Log("Starting Dashboard");
+        statusText.text = "Behandler idé";
     }
 
     public void StopDashBoard()
     {
-        Debug.Log("Stopping Dashboard");
+        statusText.text = "Behandling færdig";
     }
 }

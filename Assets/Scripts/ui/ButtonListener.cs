@@ -13,6 +13,7 @@ public class ButtonListener : MonoBehaviour
         {
             OnButtonPress();
         });
+        
         MakeInteractable(false);
     }
 

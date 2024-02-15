@@ -12,9 +12,19 @@ public class PromptManager : Singleton<PromptManager>
     [SerializeField] private TMP_InputField authorInputField;
     [SerializeField] private TMP_InputField ageInputField;
 
+    public ButtonListener sendButton;
+
     void Start()
     {
         ResetInputField();
+        promptInputField.onValueChanged.AddListener(delegate { ValidateInputs(); });
+        authorInputField.onValueChanged.AddListener(delegate { ValidateInputs(); });
+        ageInputField.onValueChanged.AddListener(delegate { ValidateInputs(); });
+    }
+
+    private void ValidateInputs()
+    {
+        sendButton.MakeInteractable(!AreFieldsEmptyOrProfane());
     }
 
     private void ResetInputField()
@@ -46,39 +56,35 @@ public class PromptManager : Singleton<PromptManager>
         return entry;
     }
 
-    private bool AreFieldsEmptyOrProfane()
+    public bool AreFieldsEmptyOrProfane()
     {
-        if (IsFieldEmpty())
+        if (AreFieldsEmpty())
         {
-            Debug.Log("Please fill out all fields");
+            // Debug.Log("Please fill out all fields");
             return true;
         }
-        else if (ContainsProfanity(promptInputField.text))
+        else if (DoesFieldsContainProfanity())
         {
-            Debug.Log("Prompt input field contains profanity");
-            return true;
-        }
-        else if (ContainsProfanity(authorInputField.text))
-        {
-            Debug.Log("Author input field contains profanity");
-            return true;
-        }
-        else if (ContainsProfanity(ageInputField.text))
-        {
-            Debug.Log("Age input field contains profanity");
+            // Debug.Log("Profanity not allowed in any field");
             return true;
         }
         return false;
     }
 
-    private bool IsFieldEmpty()
+    private bool AreFieldsEmpty()
     {
         return string.IsNullOrEmpty(promptInputField.text) || string.IsNullOrEmpty(authorInputField.text) || string.IsNullOrEmpty(ageInputField.text);
     }
 
-    private bool ContainsProfanity(string input)
+    private bool DoesFieldsContainProfanity()
     {
-        return ProfanityFilter.Instance.ContainsProfanity(input);
+        return ProfanityFilter.Instance.ContainsProfanity(promptInputField.text) || ProfanityFilter.Instance.ContainsProfanity(authorInputField.text) || ProfanityFilter.Instance.ContainsProfanity(ageInputField.text);
     }
-
+    void OnDestroy()
+    {
+        // Unsubscribe to avoid memory leaks
+        promptInputField.onValueChanged.RemoveAllListeners();
+        authorInputField.onValueChanged.RemoveAllListeners();
+        ageInputField.onValueChanged.RemoveAllListeners();
+    }
 }

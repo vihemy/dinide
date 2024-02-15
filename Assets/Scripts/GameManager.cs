@@ -27,6 +27,7 @@ public class GameManager : Singleton<GameManager>
     public void OnSubmitIdea()
     {
         stateManager.ChangeState(new ProcessingState());
+        PromptManager.Instance.CreateEntryFromPrompt();
     }
 
     public void OnFinishProcessing()
