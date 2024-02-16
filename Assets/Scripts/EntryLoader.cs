@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using TMPro;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 public class EntryLoader : Singleton<EntryLoader>
 {

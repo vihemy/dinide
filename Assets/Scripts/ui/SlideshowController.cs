@@ -6,17 +6,16 @@ using System.Collections.Generic;
 
 public class SlideshowController : Singleton<SlideshowController>
 {
-    public SpriteRenderer spriteRenderer;
-    public TextMeshProUGUI promptText;
-    public TextMeshProUGUI authorInfoText;
-    public float displayDuration = 5f;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private TextMeshProUGUI promptText;
+    [SerializeField] private TextMeshProUGUI authorInfoText;
+    [SerializeField] private float displayDuration = 5f;
     private int currentIndex = 0;
     private Coroutine slideshowCoroutine;
-    private Logger logger;
 
-    new void Awake()
+    void Start()
     {
-        logger = Logger.Instance;
+        LightController.Instance.OnFlashHalfway += InstantiateSlideshow;
     }
 
     public void InstantiateSlideshow()
@@ -43,12 +42,18 @@ public class SlideshowController : Singleton<SlideshowController>
         }
     }
 
-    public void UpdateAndDisplayNewEntry(EntryData newEntry)
+    // VIRKER IKKE - LAVER ROD I SLIDESHOWCOROUTINEN!
+    public void UpdateSlideShowAndCounter(EntryData newEntry)
     {
         StopCoroutine(slideshowCoroutine); // Stop the current slideshow
+        TriggerFlash(); // Lightcontroller trigger OnFlashHalfway event
+        SetCurrentIndexToEntry(newEntry);
+        EntryCounter.Instance.RefreshCounterDisplay();
+    }
+
+    private void SetCurrentIndexToEntry(EntryData newEntry)
+    {
         currentIndex = EntryCache.Instance.entries.IndexOf(newEntry);
-        DisplayEntry(newEntry);
-        slideshowCoroutine = StartCoroutine(DisplaySlideshow()); // Restart the slideshow
     }
 
     private void DisplayEntry(EntryData entryData)
@@ -56,5 +61,15 @@ public class SlideshowController : Singleton<SlideshowController>
         spriteRenderer.sprite = Sprite.Create(entryData.texture, new Rect(0, 0, entryData.texture.width, entryData.texture.height), new Vector2(0.5f, 0.5f));
         promptText.text = "\"" + entryData.prompt + "\"";
         authorInfoText.text = entryData.author + ", " + entryData.age;
+    }
+
+    private void TriggerFlash()
+    {
+        LightController.Instance.Flash();
+    }
+
+    void OnDestroy()
+    {
+        LightController.Instance.OnFlashHalfway -= InstantiateSlideshow;
     }
 }

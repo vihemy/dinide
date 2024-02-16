@@ -22,7 +22,7 @@ public class EntryCache : Singleton<EntryCache>
         }
         entries.Add(entry);
 
-        SlideshowController.Instance.UpdateAndDisplayNewEntry(entry); // Notify SlideshowController about the new entry
+        SlideshowController.Instance.UpdateSlideShowAndCounter(entry); // Notify SlideshowController about the new entry
     }
 
     public void RemoveEntry(EntryData entry)
