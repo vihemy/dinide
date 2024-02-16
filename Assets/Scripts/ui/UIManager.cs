@@ -10,7 +10,6 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject IdlePanel;
     [SerializeField] private GameObject InputPanel;
     [SerializeField] private GameObject InputPanelLock;
-    [SerializeField] private ButtonListener submitButton;
 
     public void EnableIdleState(bool state)
     {
