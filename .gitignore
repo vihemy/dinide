@@ -1,6 +1,8 @@
 # Folders
 Art/
+Art.Meta
 ExternalAssets/
+ExternalAssets.Meta
 
 # sensitive info
 config.txt
