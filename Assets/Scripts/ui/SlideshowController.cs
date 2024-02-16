@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class SlideshowController : Singleton<SlideshowController>
 {
-    public Image imageDisplay;
+    public SpriteRenderer spriteRenderer;
     public TextMeshProUGUI promptText;
     public TextMeshProUGUI authorInfoText;
     public float displayDuration = 5f;
@@ -53,7 +53,7 @@ public class SlideshowController : Singleton<SlideshowController>
 
     private void DisplayEntry(EntryData entryData)
     {
-        imageDisplay.sprite = Sprite.Create(entryData.texture, new Rect(0, 0, entryData.texture.width, entryData.texture.height), new Vector2(0.5f, 0.5f));
+        spriteRenderer.sprite = Sprite.Create(entryData.texture, new Rect(0, 0, entryData.texture.width, entryData.texture.height), new Vector2(0.5f, 0.5f));
         promptText.text = "\"" + entryData.prompt + "\"";
         authorInfoText.text = entryData.author + ", " + entryData.age;
     }
