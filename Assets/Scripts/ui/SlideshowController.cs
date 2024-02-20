@@ -15,11 +15,7 @@ public class SlideshowController : Singleton<SlideshowController>
     private int currentIndex = 0;
     private Coroutine slideshowCoroutine;
 
-    void Start()
-    {
-        RestartSlideshow();
-    }
-
+   
     public void RestartSlideshow()
     {
         StopSlideShowCoroutine();

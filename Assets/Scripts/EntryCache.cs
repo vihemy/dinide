@@ -14,15 +14,23 @@ public class EntryCache : Singleton<EntryCache>
         logger = Logger.Instance;
     }
 
-    public void AddEntry(EntryData entry)
+    public void AddEntryPreRuntime(EntryData entry)
     {
         if (entries.Count >= maxEntries)
         {
             entries.RemoveAt(0); // Remove the oldest entry
         }
         entries.Add(entry);
+    }
 
-        SlideshowController.Instance.DisplayNewEntryAndRestartSlideShow(entry); // Notify SlideshowController about the new entry
+    public void AddEntryDuringRuntime(EntryData entry)
+    {
+        if (entries.Count >= maxEntries)
+        {
+            entries.RemoveAt(0); // Remove the oldest entry
+        }
+        entries.Add(entry);
+        SlideshowController.Instance.RestartSlideshow();
     }
 
     public void RemoveEntry(EntryData entry)

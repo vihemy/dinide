@@ -79,7 +79,7 @@ public class ImageDownloader : Singleton<ImageDownloader>
     {
         if (entryData != null && entryData.texture != null)
         {
-            EntryCache.Instance.AddEntry(entryData);
+            EntryCache.Instance.AddEntryDuringRuntime(entryData);
         }
         else
         {

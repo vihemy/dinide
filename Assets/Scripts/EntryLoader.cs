@@ -73,7 +73,7 @@ public class EntryLoader : Singleton<EntryLoader>
     {
         if (entryData != null && entryData.texture != null)
         {
-            EntryCache.Instance.AddEntry(entryData);
+            EntryCache.Instance.AddEntryPreRuntime(entryData);
         }
         else
         {
