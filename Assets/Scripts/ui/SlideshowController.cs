@@ -22,12 +22,16 @@ public class SlideshowController : Singleton<SlideshowController>
 
     public void RestartSlideshow()
     {
+        StopSlideShowCoroutine();
+        slideshowCoroutine = StartCoroutine(DisplaySlideshow());
+    }
+
+    private void StopSlideShowCoroutine()
+    {
         if (slideshowCoroutine != null)
         {
             StopCoroutine(slideshowCoroutine);
         }
-
-        slideshowCoroutine = StartCoroutine(DisplaySlideshow());
     }
 
     private IEnumerator DisplaySlideshow()
@@ -75,31 +79,26 @@ public class SlideshowController : Singleton<SlideshowController>
         }
     }
 
-    public void DisplayEntryAndDisplay(EntryData newEntry)
+    public void DisplayNewEntryAndRestartSlideShow(EntryData newEntry)
     {
+        StopSlideShowCoroutine();
 
-        if (slideshowCoroutine != null)
-        {
-            StopCoroutine(slideshowCoroutine);
-        }
         LightController.Instance.Flash();
-        Wait(LightController.Instance.flashDuration / 2);
+        Wait(LightController.Instance.flashDuration / 2); // Wait for half the flash duration before displaying the new entry
 
         currentIndex = EntryCache.Instance.entries.IndexOf(newEntry);
-
         StartCoroutine(DisplayEntry(newEntry));
         RestartSlideshow();
     }
+
 
     IEnumerator Wait(float duration)
     {
         yield return new WaitForSeconds(duration);
     }
+
     void OnDestroy()
     {
-        if (slideshowCoroutine != null)
-        {
-            StopCoroutine(slideshowCoroutine);
-        }
+        StopSlideShowCoroutine();
     }
 }
