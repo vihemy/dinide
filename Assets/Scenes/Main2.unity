@@ -6508,7 +6508,7 @@ MonoBehaviour:
     maxIntensity: 10
   - light: {fileID: 621272323}
     minIntensity: 1
-    maxIntensity: 6
+    maxIntensity: 4
   spriteRenderer: {fileID: 1942570316}
   minAlpha: 0.05
   maxAlpha: 1
@@ -18336,7 +18336,7 @@ MonoBehaviour:
   manager: {fileID: 6080575065324393751}
   keyType: 0
   keySize: {x: 65, y: 55}
-  keyValue: '{'
+  keyValue: "\xE5"
   targetTextKey: {fileID: 6080575065646289262}
   targetImageKey: {fileID: 0}
   shadowImage: {fileID: 6080575065929315538}
@@ -19319,7 +19319,7 @@ MonoBehaviour:
   manager: {fileID: 6080575065324393751}
   keyType: 0
   keySize: {x: 65, y: 55}
-  keyValue: '}'
+  keyValue: '{'
   targetTextKey: {fileID: 6080575065711513160}
   targetImageKey: {fileID: 0}
   shadowImage: {fileID: 6080575065619207331}
@@ -26793,7 +26793,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '|'
+  m_text: '}'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -27580,7 +27580,7 @@ MonoBehaviour:
   manager: {fileID: 6080575065324393751}
   keyType: 0
   keySize: {x: 65, y: 55}
-  keyValue: '|'
+  keyValue: '}'
   targetTextKey: {fileID: 6080575065495642466}
   targetImageKey: {fileID: 0}
   shadowImage: {fileID: 6080575064654213496}
@@ -29147,7 +29147,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '{'
+  m_text: "\xE5"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -29631,7 +29631,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '}'
+  m_text: '{'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

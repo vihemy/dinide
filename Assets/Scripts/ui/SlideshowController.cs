@@ -15,7 +15,6 @@ public class SlideshowController : Singleton<SlideshowController>
     private int currentIndex = 0;
     private Coroutine slideshowCoroutine;
 
-
     public void RestartSlideshow()
     {
         StopSlideShowCoroutine();
@@ -74,21 +73,25 @@ public class SlideshowController : Singleton<SlideshowController>
     public void DisplayNewEntryAndRestartSlideShow(EntryData newEntry)
     {
         StopSlideShowCoroutine();
-
         LightController.Instance.Flash();
-        Wait(LightController.Instance.flashDuration / 2);
-
-        currentIndex = EntryCache.Instance.entries.IndexOf(newEntry);
-        StartCoroutine(DisplayEntry(newEntry));
-        RestartSlideshow();
-
-        GameManager.Instance.ResetGame();
+        StartCoroutine(WaitForFlashAndDisplayEntry(newEntry));
     }
 
-
-    IEnumerator Wait(float duration)
+    private IEnumerator WaitForFlashAndDisplayEntry(EntryData newEntry)
     {
-        yield return new WaitForSeconds(duration);
+        float flashDuration = LightController.Instance.flashDuration;
+
+        // Wait for the halfway point of the flash
+        yield return new WaitForSeconds(flashDuration / 2);
+
+        // Update the display to the new entry
+        UpdateEntryDisplay(newEntry);
+
+        yield return new WaitForSeconds((flashDuration / 2) + displayDuration);
+
+        // Restart the slideshow after the new entry has been displayed
+        RestartSlideshow();
+        GameManager.Instance.ResetGame();
     }
 
     void OnDestroy()

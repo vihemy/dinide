@@ -41,7 +41,7 @@ public class PromptManager : Singleton<PromptManager>
         {
             EntryData entry = CreateEntryData();
             DalleAPICaller.Instance.RequestDalle(entry);
-            Debug.Log(entry.prompt + " " + entry.author + " " + entry.age);
+            Logger.Instance.Log($"Input entered: Prompt = {entry.prompt}, Author = {entry.author}, Age = {entry.age}");
             ResetInputField();
         }
     }
