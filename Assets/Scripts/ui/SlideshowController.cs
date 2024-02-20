@@ -15,7 +15,7 @@ public class SlideshowController : Singleton<SlideshowController>
     private int currentIndex = 0;
     private Coroutine slideshowCoroutine;
 
-   
+
     public void RestartSlideshow()
     {
         StopSlideShowCoroutine();
@@ -41,13 +41,9 @@ public class SlideshowController : Singleton<SlideshowController>
 
     private IEnumerator DisplayEntry(EntryData entry)
     {
-        // Fade out current entry
         yield return StartCoroutine(FadeSprite(0f, fadeDuration / 2));
-        // Update to new entry
         UpdateEntryDisplay(entry);
-        // Fade in new entry
         yield return StartCoroutine(FadeSprite(1f, fadeDuration / 2));
-        // Wait for display duration
         yield return new WaitForSeconds(displayDuration);
     }
 
@@ -80,11 +76,13 @@ public class SlideshowController : Singleton<SlideshowController>
         StopSlideShowCoroutine();
 
         LightController.Instance.Flash();
-        Wait(LightController.Instance.flashDuration / 2); // Wait for half the flash duration before displaying the new entry
+        Wait(LightController.Instance.flashDuration / 2);
 
         currentIndex = EntryCache.Instance.entries.IndexOf(newEntry);
         StartCoroutine(DisplayEntry(newEntry));
         RestartSlideshow();
+
+        GameManager.Instance.ResetGame();
     }
 
 

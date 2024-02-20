@@ -21,13 +21,12 @@ public class ImageDownloader : Singleton<ImageDownloader>
 
     private IEnumerator DownloadImageCoroutine(EntryData entry)
     {
+        logger.Log($"DALL-E request send with prompt: {entry.prompt}");
         using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(entry.imageUrl))
         {
             yield return request.SendWebRequest();
             HandleWebRequestResult(request, entry);
         }
-
-        logger.Log($"DALL-E request send with prompt: {entry.prompt}");
     }
 
     private void HandleWebRequestResult(UnityWebRequest request, EntryData entry)
@@ -35,7 +34,6 @@ public class ImageDownloader : Singleton<ImageDownloader>
         if (IsWebRequestSuccessful(request))
         {
             ProcessDownloadedTexture(request, entry);
-            GameManager.Instance.OnFinishProcessing();
             logger.Log($"DALL-E request successful with prompt: {entry.prompt}");
         }
         else
@@ -80,6 +78,7 @@ public class ImageDownloader : Singleton<ImageDownloader>
 
     private static void AddToCache(EntryData entryData)
     {
+        GameManager.Instance.FinishProcessing();
         if (entryData != null && entryData.texture != null)
         {
             EntryCache.Instance.AddEntryDuringRuntime(entryData);

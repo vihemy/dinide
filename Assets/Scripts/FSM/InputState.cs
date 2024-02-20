@@ -8,6 +8,7 @@ public class InputState : IState
     {
         UIManager.Instance.EnableInputState(true);
         UIManager.Instance.LockInputPanel(false);
+        Logger.Instance.Log("Entering Input State");
     }
     public void Execute()
     {
@@ -16,5 +17,6 @@ public class InputState : IState
     public void Exit()
     {
         UIManager.Instance.LockInputPanel(true);
+        Logger.Instance.Log("Exiting Input State");
     }
 }

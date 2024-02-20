@@ -13,13 +13,13 @@ public class ButtonListener : MonoBehaviour
         {
             OnButtonPress();
         });
-        
+
         MakeInteractable(false);
     }
 
     public void OnButtonPress()
     {
-        PromptManager.Instance.CreateEntryFromPrompt();
+        GameManager.Instance.SubmitIdea();
     }
 
     public void MakeInteractable(bool state)

@@ -19,24 +19,24 @@ public class GameManager : Singleton<GameManager>
         SlideshowController.Instance.RestartSlideshow(); // slideshow needs to be instantiated before entries are loaded
     }
 
-    public void OnStartGame()
+    public void ResetGame()
+    {
+        stateManager.ChangeState(new IdleState());
+    }
+
+    public void StartGame()
     {
         stateManager.ChangeState(new InputState());
     }
 
-    public void OnSubmitIdea()
+    public void SubmitIdea()
     {
         stateManager.ChangeState(new ProcessingState());
         PromptManager.Instance.CreateEntryFromPrompt();
     }
 
-    public void OnFinishProcessing()
+    public void FinishProcessing()
     {
-        stateManager.ChangeState(new DeliverState());
-    }
-
-    public void OnResetGame()
-    {
-        stateManager.ChangeState(new IdleState());
+        stateManager.ChangeState(new OutputState());
     }
 }

@@ -16,6 +16,6 @@ public class StartButton : MonoBehaviour
 
     private void OnButtonPress()
     {
-        GameManager.Instance.OnStartGame();
+        GameManager.Instance.StartGame();
     }
 }
