@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-
 [System.Serializable]
 public class LightData
 {
@@ -18,23 +17,14 @@ public class LightController : Singleton<LightController>
     public LightData[] lightsData;
 
     [Header("SpriteRenderer")]
-    public SpriteRenderer spriteRenderer; // Reference to the SpriteRenderer
-    public float minAlpha = 0.0f; // Minimum alpha value for the sprite
+    public SpriteRenderer spriteRenderer;
+    public float minAlpha = 0.0f;
     public float maxAlpha = 1.0f;
     [Header("Flash")]
     public float intensityFactor = 1.0f; // Factor to scale the intensity of all lights
-    [SerializeField] private float flashDuration = 0.2f; // Timer to track the flashing
+    [SerializeField] public float flashDuration = 0.5f; 
 
     public event Action OnFlashHalfway;
-    
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Flash();
-        }
-    }
-
     public void Flash()
     {
         StartCoroutine(FlashRoutine());
@@ -53,8 +43,6 @@ public class LightController : Singleton<LightController>
 
             yield return null;
         }
-
-        OnFlashHalfway?.Invoke();
 
         // Second half of the flash: decreasing values
         timer = 0.0f;

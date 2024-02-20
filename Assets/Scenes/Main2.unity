@@ -3838,7 +3838,7 @@ MonoBehaviour:
   minAlpha: 0.05
   maxAlpha: 1
   intensityFactor: 1
-  flashDuration: 0.4
+  flashDuration: 0.8
 --- !u!1 &1128444044
 GameObject:
   m_ObjectHideFlags: 0
