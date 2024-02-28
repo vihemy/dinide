@@ -37,6 +37,9 @@ public class DalleAPICaller : Singleton<DalleAPICaller>
     {
         isRequesting = true;
         UnityWebRequest request = CreateDalleWebRequest(entry.prompt);
+
+        logger.Log($"DALL-E request send with prompt: {entry.prompt}");
+
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
