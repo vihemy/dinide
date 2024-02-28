@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using System.Runtime.CompilerServices;
+using UltimateClean;
 
 public class PromptManager : Singleton<PromptManager>
 {
@@ -17,9 +17,9 @@ public class PromptManager : Singleton<PromptManager>
     void Start()
     {
         ResetInputField();
-        promptInputField.onValueChanged.AddListener(delegate { ValidateInputs(); });
-        authorInputField.onValueChanged.AddListener(delegate { ValidateInputs(); });
-        ageInputField.onValueChanged.AddListener(delegate { ValidateInputs(); });
+        promptInputField.onEndEdit.AddListener(delegate { ValidateInputs(); });
+        authorInputField.onEndEdit.AddListener(delegate { ValidateInputs(); });
+        ageInputField.onEndEdit.AddListener(delegate { ValidateInputs(); });
     }
 
     private void ValidateInputs()
@@ -60,12 +60,12 @@ public class PromptManager : Singleton<PromptManager>
     {
         if (AreFieldsEmpty())
         {
-            // Debug.Log("Please fill out all fields");
+            // PopupController.Instance.DisplayEmptyFieldPopup();
             return true;
         }
         else if (DoesFieldsContainProfanity())
         {
-            // Debug.Log("Profanity not allowed in any field");
+            PopupController.Instance.DisplayProfanityPopup();
             return true;
         }
         return false;
