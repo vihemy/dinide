@@ -3928,9 +3928,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 428178918}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: 486, z: 0}
-  m_LocalScale: {x: 21.146997, y: 24.319048, z: 21.146997}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 1, y: 516, z: 0}
+  m_LocalScale: {x: 18, y: 21, z: 18}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1124359646}
   m_RootOrder: 2
@@ -3977,7 +3977,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 16
   m_Sprite: {fileID: 21300000, guid: 6db4c8ed89f7fc540818115477d5d637, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -8469,15 +8469,15 @@ MonoBehaviour:
   lightsData:
   - spriteRenderer: {fileID: 1492155418}
     minIntensity: 0
-    maxIntensity: 1
+    maxIntensity: 2
   - spriteRenderer: {fileID: 294658353}
     minIntensity: 0
-    maxIntensity: 0.5
+    maxIntensity: 2
   - spriteRenderer: {fileID: 428178920}
     minIntensity: 0
     maxIntensity: 1
   intensityFactor: 1
-  flashDuration: 1.6
+  flashDuration: 2
   flashDelay: 1
 --- !u!1 &1128444044
 GameObject:
@@ -13940,8 +13940,9 @@ MonoBehaviour:
   spriteRenderer: {fileID: 123502725}
   promptText: {fileID: 24782653}
   authorInfoText: {fileID: 1908606390}
-  displayDuration: 8
-  fadeDuration: 4
+  standardDisplayDuration: 5
+  newEntryDisplayDuration: 10
+  fadeDuration: 2
 --- !u!4 &1847706244
 Transform:
   m_ObjectHideFlags: 0
