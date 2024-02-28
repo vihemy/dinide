@@ -8,8 +8,7 @@ using TMPro;
 public class DashboardManager : Singleton<DashboardManager>
 {
     [SerializeField] private TextMeshProUGUI statusText;
-    [SerializeField] private Animator animator1;
-    [SerializeField] private Animator animator2;
+    [SerializeField] private Animator animator;
 
     public void IdleDashBoard()
     {
@@ -19,20 +18,14 @@ public class DashboardManager : Singleton<DashboardManager>
     public void StartDashBoard()
     {
         statusText.text = "Behandler idé";
-        animator1.SetTrigger("Start");
-        animator1.ResetTrigger("Stop");
-
-        animator2.SetTrigger("Start");
-        animator2.ResetTrigger("Stop");
+        animator.SetTrigger("Start");
+        animator.ResetTrigger("Stop");
     }
 
     public void StopDashBoard()
     {
         statusText.text = "Behandling færdig";
-        animator1.SetTrigger("Stop");
-        animator1.ResetTrigger("Start");
-
-        animator2.SetTrigger("Stop");
-        animator2.ResetTrigger("Start");
+        animator.SetTrigger("Stop");
+        animator.ResetTrigger("Start");
     }
 }
