@@ -30,8 +30,8 @@ public class EntryCache : Singleton<EntryCache>
             entries.RemoveAt(0); // Remove the oldest entry
         }
         entries.Add(entry);
-        
-        SlideshowController.Instance.DisplayNewEntryAndRestartSlideShow(entry);
+
+        SlideshowController.Instance.DisplayNewEntryAndRestartSlideshow(entry);
     }
 
     public void RemoveEntry(EntryData entry)
