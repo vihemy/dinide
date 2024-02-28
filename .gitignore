@@ -1,8 +1,14 @@
 # Folders
 Art/
 Art.Meta
-ExternalAssets/
-ExternalAssets.Meta
+/Assets/ExternalAssets/
+/Assets/ExternalAssets.Meta
+/Assets/ExternalAssets/Custom UI Keyboard/
+/Assets/BlendModes/
+/Assets/BlendModes.Meta
+
+/Packages/ca.tim-cstj.export-project-to-zip
+ProjectSettings/ExportProjectToZipSettings.json
 
 # sensitive info
 config.txt
@@ -82,3 +88,4 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
