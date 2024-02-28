@@ -9,6 +9,7 @@ public class ImageDownloader : Singleton<ImageDownloader>
 
     private Logger logger;
 
+    [SerializeField] private float cacheDelay = 15f;
     new void Awake()
     {
         logger = Logger.Instance;
@@ -21,7 +22,6 @@ public class ImageDownloader : Singleton<ImageDownloader>
 
     private IEnumerator DownloadImageCoroutine(EntryData entry)
     {
-        logger.Log($"DALL-E request send with prompt: {entry.prompt}");
         using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(entry.imageUrl))
         {
             yield return request.SendWebRequest();
@@ -34,7 +34,7 @@ public class ImageDownloader : Singleton<ImageDownloader>
         if (IsWebRequestSuccessful(request))
         {
             ProcessDownloadedTexture(request, entry);
-            logger.Log($"DALL-E request successful with prompt: {entry.prompt}");
+            logger.Log($"Download succesfull. Image with prompt: {entry.prompt}");
         }
         else
         {
@@ -45,7 +45,7 @@ public class ImageDownloader : Singleton<ImageDownloader>
     private void ProcessDownloadedTexture(UnityWebRequest request, EntryData entry)
     {
         entry.texture = DownloadHandlerTexture.GetContent(request);
-        AddToCache(entry);
+        StartCoroutine(AddToCacheAfterDelay(entry));
         SaveTextureAsJPG(entry); // Save image as JPG
         SaveEntryDataAsJson(entry); // Save metadata as JSON
     }
@@ -74,6 +74,12 @@ public class ImageDownloader : Singleton<ImageDownloader>
     private string GenerateJsonFilePath(string filename)
     {
         return Path.Combine(Application.persistentDataPath, $"{filename}.json");
+    }
+
+    private IEnumerator AddToCacheAfterDelay(EntryData entry)
+    {
+        yield return new WaitForSeconds(cacheDelay);
+        AddToCache(entry);
     }
 
     private static void AddToCache(EntryData entryData)
