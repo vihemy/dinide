@@ -29,6 +29,22 @@ public class LightController : Singleton<LightController>
             Flash();
         }
     }
+    private void Start()
+    {
+        ResetLightsAlpha();
+    }
+
+    private void ResetLightsAlpha()
+    {
+        for (int i = 0; i < lightsData.Length; i++)
+        {
+            var lightData = lightsData[i];
+            Color spriteColor = lightData.spriteRenderer.color;
+            spriteColor.a = 0;
+            lightData.spriteRenderer.color = spriteColor;
+        }
+    }
+
     public void Flash()
     {
         StartCoroutine(FlashRoutine());
@@ -63,36 +79,13 @@ public class LightController : Singleton<LightController>
 
     private void UpdateSpriteAlpha(float lerpFactor)
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < lightsData.Length; i++)
         {
             var lightData = lightsData[i];
             float alpha = Mathf.Lerp(lightData.minIntensity, lightData.maxIntensity, lerpFactor);
             Color spriteColor = lightData.spriteRenderer.color;
             spriteColor.a = alpha;
             lightData.spriteRenderer.color = spriteColor;
-        }
-
-        // StartCoroutine(FadeLastLightData(flashDelay));
-
-    }
-
-    // Fade last LightData-object with a delay
-    private IEnumerator FadeLastLightData(float delay)
-    {
-
-        LightData lastLightData = lightsData[lightsData.Length - 1];
-        float timer = 0.0f;
-        while (timer < flashDuration - delay)
-        {
-            timer += Time.deltaTime;
-            float lerpFactor = timer / flashDuration;
-
-            float alpha = Mathf.Lerp(lastLightData.maxIntensity, lastLightData.minIntensity, lerpFactor);
-            Color spriteColor = lastLightData.spriteRenderer.color;
-            spriteColor.a = alpha;
-            lastLightData.spriteRenderer.color = spriteColor;
-
-            yield return null;
         }
     }
 }
