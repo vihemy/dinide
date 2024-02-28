@@ -16,7 +16,7 @@ public class GameManager : Singleton<GameManager>
     void InstantiateEntrySystem()
     {
         EntryLoader.Instance.LoadLatestEntries();
-        SlideshowController.Instance.RestartSlideshow(); // slideshow needs to be instantiated before entries are loaded
+        SlideshowController.Instance.StartSlideshow(); // slideshow needs to be instantiated before entries are loaded
     }
 
     public void ResetGame()
