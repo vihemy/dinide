@@ -1,59 +1,69 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
-using System.Collections.Generic;
-using System;
 
 public class SlideshowController : Singleton<SlideshowController>
 {
+    [Header("UI Elements")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private TextMeshProUGUI promptText;
     [SerializeField] private TextMeshProUGUI authorInfoText;
-    [SerializeField] private float displayDuration = 5f; // Easily adjustable
-    [SerializeField] private float fadeDuration = 1f;    // Total fade duration (in and out)
+    [Header("Configuration")]
+    [SerializeField] private float standardDisplayDuration = 5f;
+    [SerializeField] private float newEntryDisplayDuration = 10f;
+    [SerializeField] private float fadeDuration = 1f;
 
     private int currentIndex = 0;
     private Coroutine slideshowCoroutine;
+    private bool isDisplayingNewEntry = false;
 
-    public void RestartSlideshow()
-    {
-        StopSlideShowCoroutine();
-        slideshowCoroutine = StartCoroutine(DisplaySlideshow());
-    }
-
-    private void StopSlideShowCoroutine()
+    public void StartSlideshow()
     {
         if (slideshowCoroutine != null)
         {
             StopCoroutine(slideshowCoroutine);
         }
+        slideshowCoroutine = StartCoroutine(DisplaySlideshow());
     }
 
     private IEnumerator DisplaySlideshow()
     {
         while (true)
         {
-            yield return StartCoroutine(DisplayEntry(EntryCache.Instance.entries[currentIndex]));
-            currentIndex = (currentIndex + 1) % EntryCache.Instance.entries.Count;
+            yield return DisplayEntry(EntryCache.Instance.entries[currentIndex], standardDisplayDuration, true);
+            MoveToNextEntry();
         }
     }
 
-    private IEnumerator DisplayEntry(EntryData entry)
+    private void MoveToNextEntry()
     {
-        yield return StartCoroutine(FadeSprite(0f, fadeDuration / 2));
+        currentIndex = (currentIndex + 1) % EntryCache.Instance.entries.Count;
+    }
+
+    private IEnumerator DisplayEntry(EntryData entry, float displayDuration, bool useFadeIn)
+    {
+        // Update the entry display before starting the fade-in
         UpdateEntryDisplay(entry);
-        yield return StartCoroutine(FadeSprite(1f, fadeDuration / 2));
+
+        // Fade in the new entry if required
+        if (useFadeIn)
+        {
+            yield return Fade(1f, fadeDuration);
+        }
+
+        else
+        {
+            spriteRenderer.color = new Color(1f, 1f, 1f, 1f);
+        }
+
+        // Keep the entry displayed for the specified duration
         yield return new WaitForSeconds(displayDuration);
+
+        // Fade out the entry at the end of its display period if required
+        yield return Fade(0f, fadeDuration);
     }
 
-    private void UpdateEntryDisplay(EntryData entry)
-    {
-        spriteRenderer.sprite = Sprite.Create(entry.texture, new Rect(0, 0, entry.texture.width, entry.texture.height), new Vector2(0.5f, 0.5f)); ;
-        promptText.text = entry.prompt;
-        authorInfoText.text = authorInfoText.text = entry.author + ", " + entry.age; ;
-    }
-
-    private IEnumerator FadeSprite(float targetAlpha, float duration)
+    private IEnumerator Fade(float targetAlpha, float duration)
     {
         float startAlpha = spriteRenderer.color.a;
         float timer = 0f;
@@ -70,32 +80,43 @@ public class SlideshowController : Singleton<SlideshowController>
         }
     }
 
-    public void DisplayNewEntryAndRestartSlideShow(EntryData newEntry)
+    private void UpdateEntryDisplay(EntryData entry)
     {
-        StopSlideShowCoroutine();
-        LightController.Instance.Flash();
-        StartCoroutine(WaitForFlashAndDisplayEntry(newEntry));
+        spriteRenderer.sprite = Sprite.Create(entry.texture, new Rect(0, 0, entry.texture.width, entry.texture.height), new Vector2(0.5f, 0.5f));
+        promptText.text = entry.prompt;
+        authorInfoText.text = entry.author + ", " + entry.age;
     }
 
-    private IEnumerator WaitForFlashAndDisplayEntry(EntryData newEntry)
+    public void DisplayNewEntryAndRestartSlideshow(EntryData newEntry)
     {
-        float flashDuration = LightController.Instance.flashDuration;
+        if (slideshowCoroutine != null)
+        {
+            StopCoroutine(slideshowCoroutine);
+        }
+        isDisplayingNewEntry = true;
+        StartCoroutine(DisplayNewEntry(newEntry));
+    }
 
-        // Wait for the halfway point of the flash
+    private IEnumerator DisplayNewEntry(EntryData newEntry)
+    {
+        LightController.Instance.Flash(); // Invoke the flash method
+        float flashDuration = LightController.Instance.flashDuration;
         yield return new WaitForSeconds(flashDuration / 2);
 
-        // Update the display to the new entry
-        UpdateEntryDisplay(newEntry);
+        // Display the new entry for its unique duration, without fade
+        yield return DisplayEntry(newEntry, newEntryDisplayDuration, false);
 
-        yield return new WaitForSeconds((flashDuration / 2) + displayDuration);
-
+        isDisplayingNewEntry = false;
         // Restart the slideshow after the new entry has been displayed
-        RestartSlideshow();
+        StartSlideshow();
         GameManager.Instance.ResetGame();
     }
 
     void OnDestroy()
     {
-        StopSlideShowCoroutine();
+        if (slideshowCoroutine != null)
+        {
+            StopCoroutine(slideshowCoroutine);
+        }
     }
 }
