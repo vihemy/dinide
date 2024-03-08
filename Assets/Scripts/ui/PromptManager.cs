@@ -83,8 +83,8 @@ public class PromptManager : Singleton<PromptManager>
     void OnDestroy()
     {
         // Unsubscribe to avoid memory leaks
-        promptInputField.onValueChanged.RemoveAllListeners();
-        authorInputField.onValueChanged.RemoveAllListeners();
-        ageInputField.onValueChanged.RemoveAllListeners();
+        if (promptInputField != null) promptInputField.onValueChanged.RemoveAllListeners();
+        if (authorInputField != null) authorInputField.onValueChanged.RemoveAllListeners();
+        if (ageInputField != null) ageInputField.onValueChanged.RemoveAllListeners();
     }
 }
