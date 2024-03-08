@@ -36,5 +36,4 @@ public class DashboardManager : Singleton<DashboardManager>
         Debug.Log("Animation complete");
         OnDashboardAnimationEnd?.Invoke();
     }
-
 }
