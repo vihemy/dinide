@@ -18,20 +18,19 @@ public class AudioManager : Singleton<AudioManager>
             s.source.panStereo = s.pan;
         }
     }
-
-    private void Play(string name)
+    public void Play(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         s.source.Play();
     }
 
-    private void Stop(string name)
+    public void Stop(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         s.source.Stop();
     }
 
-    private void PlayOneShot(string name)
+    public void PlayOneShot(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         s.source.PlayOneShot(s.clip);
