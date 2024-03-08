@@ -18,8 +18,6 @@ public class LightController : Singleton<LightController>
     public float intensityFactor = 1.0f; // Factor to scale the intensity of all lights
     [SerializeField] public float flashDuration = 0.5f;
 
-    public event Action OnFlashHalfway;
-
     public float flashDelay = 1.0f;
 
     private void Update()
