@@ -8,7 +8,8 @@ using TMPro;
 /// <summary>
 /// Script for key button
 /// </summary>
-public class KeyButtonScript : MonoBehaviour, IPointerDownHandler, IPointerUpHandler {
+public class KeyButtonScript : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+{
     public KeyboardManager manager; // Reference to keyboard manager
 
     public KeyClass.KeyType keyType; // Current key type
@@ -36,11 +37,13 @@ public class KeyButtonScript : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     /// <param name="currentFontSize">Font size for text</param>
     public void InitKey(Vector2 keySize, string keyValue, KeyboardManager manager,
         Color buttonsNormalColor, Color buttonsHightlightedColor, Color buttonsPressedColor,
-        Color buttonsSelectedColor, Color keysTextColor, Color glowColor, TMP_FontAsset currentFont, float currentFontSize) {
+        Color buttonsSelectedColor, Color keysTextColor, Color glowColor, TMP_FontAsset currentFont, float currentFontSize)
+    {
         this.keySize = keySize;
         this.manager = manager;
         this.keyValue = keyValue;
-        if(keyType == KeyClass.KeyType.Character || keyType == KeyClass.KeyType.EmojiCharacter) {
+        if (keyType == KeyClass.KeyType.Character || keyType == KeyClass.KeyType.EmojiCharacter)
+        {
             targetTextKey.text = keyValue;
         }
         GetComponent<RectTransform>().sizeDelta = keySize;
@@ -54,12 +57,14 @@ public class KeyButtonScript : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         colorsButton.colorMultiplier = 1;
         colorsButton.fadeDuration = 0.1f;
         button.colors = colorsButton;
-        if (targetTextKey != null) {
+        if (targetTextKey != null)
+        {
             targetTextKey.color = keysTextColor;
             targetTextKey.font = currentFont;
             targetTextKey.fontSize = currentFontSize;
         }
-        if (targetImageKey != null) {
+        if (targetImageKey != null)
+        {
             targetImageKey.color = keysTextColor;
         }
         shadowImage.color = glowColor;
@@ -71,7 +76,8 @@ public class KeyButtonScript : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     /// Set shift state
     /// </summary>
     /// <param name="isShifted">Is shift enabled</param>
-    public void SetShiftState(bool isShifted) {
+    public void SetShiftState(bool isShifted)
+    {
         this.isShifted = isShifted;
         targetTextKey.fontStyle = isShifted ? FontStyles.UpperCase : FontStyles.LowerCase;
     }
@@ -79,8 +85,11 @@ public class KeyButtonScript : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     /// <summary>
     /// Press key button
     /// </summary>
-    public void PressButton() {
-        switch (keyType) {
+    public void PressButton()
+    {
+        AudioManager.Instance.PlayOneShot("KeyPress");
+        switch (keyType)
+        {
             case KeyClass.KeyType.Character:
                 manager.PressKey(isShifted ? keyValue.ToUpper() : keyValue.ToLower());
                 break;
@@ -111,11 +120,13 @@ public class KeyButtonScript : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         }
     }
 
-    public void OnPointerDown (PointerEventData eventData) {
+    public void OnPointerDown(PointerEventData eventData)
+    {
         manager.isPressKeyboard = true;
     }
 
-    public void OnPointerUp (PointerEventData eventData) {
+    public void OnPointerUp(PointerEventData eventData)
+    {
         manager.isPressKeyboard = false;
     }
 }
