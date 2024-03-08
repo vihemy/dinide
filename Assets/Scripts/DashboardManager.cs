@@ -10,6 +10,8 @@ public class DashboardManager : Singleton<DashboardManager>
     [SerializeField] private TextMeshProUGUI statusText;
     [SerializeField] private Animator animator;
 
+    public Action OnDashboardAnimationEnd;
+
     public void IdleDashBoard()
     {
         statusText.text = "Venter på idé";
@@ -28,4 +30,11 @@ public class DashboardManager : Singleton<DashboardManager>
         animator.SetTrigger("Stop");
         animator.ResetTrigger("Start");
     }
+
+    public void TriggerAnimationEndEvent() // is triggered from RunDashboard animation
+    {
+        Debug.Log("Animation complete");
+        OnDashboardAnimationEnd?.Invoke();
+    }
+
 }
