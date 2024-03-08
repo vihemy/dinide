@@ -8,21 +8,23 @@ public class EntryCounter : Singleton<EntryCounter>
 
     private void Start()
     {
+        SlideshowController.Instance.OnNewEntryAdded += RefreshCounterDisplay;
         RefreshCounterDisplay();
     }
+
+    public void RefreshCounterDisplay()
+    {
+        int entryCount = CountEntriesOnDisk();
+        string formattedCount = FormatWithLeadingZeros(entryCount);
+        counterText.text = formattedCount;
+    }
+
     private int CountEntriesOnDisk()
     {
         string folderPath = Application.persistentDataPath;
         DirectoryInfo directoryInfo = new DirectoryInfo(folderPath);
         FileInfo[] jsonFiles = directoryInfo.GetFiles("*.json");
         return jsonFiles.Length;
-    }
-
-    public void UpdateCounterOnScreen()
-    {
-        int entryCount = CountEntriesOnDisk();
-        string formattedCount = FormatWithLeadingZeros(entryCount);
-        counterText.text = formattedCount;
     }
 
     private string FormatWithLeadingZeros(int count)
@@ -45,30 +47,5 @@ public class EntryCounter : Singleton<EntryCounter>
         {
             return countString;
         }
-    }
-
-    // private string FormatWithLeadingZeros(int count)
-    // {
-    //     if (count < 10) // 1 digit
-    //     {
-    //         return count.ToString("0000");
-    //     }
-    //     else if (count < 100) // 2 digits
-    //     {
-    //         return count.ToString("000");
-    //     }
-    //     else if (count < 1000) // 3 digits
-    //     {
-    //         return count.ToString("00");
-    //     }
-    //     else // No leading zeros required for numbers with more than 3 digits
-    //     {
-    //         return count.ToString();
-    //     }
-    // }
-
-    public void RefreshCounterDisplay()
-    {
-        UpdateCounterOnScreen();
     }
 }

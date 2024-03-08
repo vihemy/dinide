@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class SlideshowController : Singleton<SlideshowController>
 {
@@ -16,6 +17,8 @@ public class SlideshowController : Singleton<SlideshowController>
     private int currentIndex = 0;
     private Coroutine slideshowCoroutine;
     private bool isDisplayingNewEntry = false;
+
+    public Action OnNewEntryAdded;
 
     public void StartSlideshow()
     {
@@ -94,6 +97,7 @@ public class SlideshowController : Singleton<SlideshowController>
             StopCoroutine(slideshowCoroutine);
         }
         isDisplayingNewEntry = true;
+        OnNewEntryAdded?.Invoke();
         StartCoroutine(DisplayNewEntry(newEntry));
     }
 
