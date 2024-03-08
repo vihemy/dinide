@@ -16,7 +16,6 @@ public class SlideshowController : Singleton<SlideshowController>
 
     private int currentIndex = 0;
     private Coroutine slideshowCoroutine;
-    private bool isDisplayingNewEntry = false;
 
     public Action OnNewEntryAdded;
 
@@ -96,7 +95,6 @@ public class SlideshowController : Singleton<SlideshowController>
         {
             StopCoroutine(slideshowCoroutine);
         }
-        isDisplayingNewEntry = true;
         OnNewEntryAdded?.Invoke();
         StartCoroutine(DisplayNewEntry(newEntry));
     }
@@ -110,7 +108,6 @@ public class SlideshowController : Singleton<SlideshowController>
         // Display the new entry for its unique duration, without fade
         yield return DisplayEntry(newEntry, newEntryDisplayDuration, false);
 
-        isDisplayingNewEntry = false;
         // Restart the slideshow after the new entry has been displayed
         StartSlideshow();
         GameManager.Instance.ResetGame();
