@@ -9,10 +9,12 @@ public class ImageDownloader : Singleton<ImageDownloader>
 
     private Logger logger;
 
-    [SerializeField] private float cacheDelay = 15f;
+    private EntryData finalizedEntry;
+
     new void Awake()
     {
         logger = Logger.Instance;
+        DashboardManager.Instance.OnDashboardAnimationEnd += OnDashboardAnimationEnded;
     }
 
     public void DownloadImage(EntryData entry)
@@ -45,7 +47,7 @@ public class ImageDownloader : Singleton<ImageDownloader>
     private void ProcessDownloadedTexture(UnityWebRequest request, EntryData entry)
     {
         entry.texture = DownloadHandlerTexture.GetContent(request);
-        StartCoroutine(AddToCacheAfterDelay(entry));
+        finalizedEntry = entry;
         SaveTextureAsJPG(entry); // Save image as JPG
         SaveEntryDataAsJson(entry); // Save metadata as JSON
     }
@@ -76,13 +78,12 @@ public class ImageDownloader : Singleton<ImageDownloader>
         return Path.Combine(Application.persistentDataPath, $"{filename}.json");
     }
 
-    private IEnumerator AddToCacheAfterDelay(EntryData entry)
+    private void OnDashboardAnimationEnded()
     {
-        yield return new WaitForSeconds(cacheDelay);
-        AddToCache(entry);
+        AddToCache(finalizedEntry);
     }
 
-    private static void AddToCache(EntryData entryData)
+    private void AddToCache(EntryData entryData)
     {
         GameManager.Instance.FinishProcessing();
         if (entryData != null && entryData.texture != null)
@@ -99,4 +100,14 @@ public class ImageDownloader : Singleton<ImageDownloader>
     {
         return request.result == UnityWebRequest.Result.Success;
     }
+
+    private void OnDestroy()
+    {
+        if (DashboardManager.Instance != null)
+        {
+
+            DashboardManager.Instance.OnDashboardAnimationEnd -= OnDashboardAnimationEnded;
+        }
+    }
+
 }
