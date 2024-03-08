@@ -22,7 +22,7 @@ public class ButtonListener : MonoBehaviour
 
     public void OnButtonPress()
     {
-
+        AudioManager.Instance.PlayOneShot("BootUp");
         GameManager.Instance.SubmitIdea();
     }
 

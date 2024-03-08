@@ -16,6 +16,7 @@ public class StartButton : MonoBehaviour
 
     private void OnButtonPress()
     {
+        AudioManager.Instance.PlayOneShot("ButtonPress");
         GameManager.Instance.StartGame();
     }
 }
