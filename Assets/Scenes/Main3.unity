@@ -5937,6 +5937,146 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
     pan: 0
+  - name: Electricity
+    clip: {fileID: 8300000, guid: f5c7ad3e2ac9fcf41a8006ff30061c45, type: 3}
+    volume: 0.05
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    pan: 0
+  - name: Data
+    clip: {fileID: 8300000, guid: 1da3c3d842ab5c54da96f2e084f051e5, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    pan: 0
+  - name: Forcefield
+    clip: {fileID: 8300000, guid: e377b91e400cbdb4093834a0ad9c2bef, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+    pan: 0
+  - name: Chord1
+    clip: {fileID: 8300000, guid: 6cf2b7caddd69514d94dc3d18b65aba1, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    pan: 0
+  - name: Chord2
+    clip: {fileID: 8300000, guid: 6cf2b7caddd69514d94dc3d18b65aba1, type: 3}
+    volume: 0.5
+    pitch: 1.1
+    loop: 0
+    source: {fileID: 0}
+    pan: 0
+  - name: Chord3
+    clip: {fileID: 8300000, guid: 6cf2b7caddd69514d94dc3d18b65aba1, type: 3}
+    volume: 0.5
+    pitch: 1.2
+    loop: 0
+    source: {fileID: 0}
+    pan: 0
+  - name: Chord4
+    clip: {fileID: 8300000, guid: 6cf2b7caddd69514d94dc3d18b65aba1, type: 3}
+    volume: 0.5
+    pitch: 1.3
+    loop: 0
+    source: {fileID: 0}
+    pan: 0
+  - name: Tick
+    clip: {fileID: 8300000, guid: e5dde809961e29246810a64d61c8d11b, type: 3}
+    volume: 0.2
+    pitch: 3.4
+    loop: 0
+    source: {fileID: 0}
+    pan: 0
+  - name: Bleep
+    clip: {fileID: 8300000, guid: 66f4452a7b20a7748b4a8f3c0f608022, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    pan: 0
+  - name: LightTick
+    clip: {fileID: 8300000, guid: 5f68f1fe734a72448a2bce7eae3f1b69, type: 3}
+    volume: 0.3
+    pitch: 4
+    loop: 0
+    source: {fileID: 0}
+    pan: 0
+  - name: TurnOn1
+    clip: {fileID: 8300000, guid: 44507663fce1078478e311b756b8b7e9, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    pan: 0
+  - name: TurnOn2
+    clip: {fileID: 8300000, guid: 28d971f4e6f31694cbd797d48e202bfa, type: 3}
+    volume: 1
+    pitch: 1.4
+    loop: 0
+    source: {fileID: 0}
+    pan: 0
+  - name: SoftBeep
+    clip: {fileID: 8300000, guid: ddb16e1b02e8fa94197b9d0dad773986, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    pan: 0
+  - name: SoftBeep1
+    clip: {fileID: 8300000, guid: ddb16e1b02e8fa94197b9d0dad773986, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    pan: 0
+  - name: SoftBeep2
+    clip: {fileID: 8300000, guid: ddb16e1b02e8fa94197b9d0dad773986, type: 3}
+    volume: 1
+    pitch: 1.1
+    loop: 0
+    source: {fileID: 0}
+    pan: 0
+  - name: SoftBeep3
+    clip: {fileID: 8300000, guid: ddb16e1b02e8fa94197b9d0dad773986, type: 3}
+    volume: 1
+    pitch: 1.2
+    loop: 0
+    source: {fileID: 0}
+    pan: 0
+  - name: SoftBeep4
+    clip: {fileID: 8300000, guid: ddb16e1b02e8fa94197b9d0dad773986, type: 3}
+    volume: 1
+    pitch: 1.3
+    loop: 0
+    source: {fileID: 0}
+    pan: 0
+  - name: SoftBeep5
+    clip: {fileID: 8300000, guid: ddb16e1b02e8fa94197b9d0dad773986, type: 3}
+    volume: 1
+    pitch: 1.4
+    loop: 0
+    source: {fileID: 0}
+    pan: 0
+  - name: SoftBeepAlt
+    clip: {fileID: 8300000, guid: 7cb75e33b1db2ed4a818c95cb0fe50c0, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+    pan: 0
+  - name: Ding
+    clip: {fileID: 8300000, guid: 7a08572209b5868488bad876d5ebf71c, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    pan: 0
 --- !u!4 &841116939
 Transform:
   m_ObjectHideFlags: 0
@@ -16515,6 +16655,7 @@ GameObject:
   - component: {fileID: 3832864590057418507}
   - component: {fileID: 3832864590057418505}
   - component: {fileID: 3832864590057418504}
+  - component: {fileID: 3832864590057418508}
   m_Layer: 5
   m_Name: Speedometer Arrow
   m_TagString: Untagged
@@ -16542,6 +16683,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0.000005722, y: -21.2}
   m_SizeDelta: {x: 56.21513, y: 56.21513}
   m_Pivot: {x: 0.5, y: 0.016976826}
+--- !u!114 &3832864590057418508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3832864590057418506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae9558a7986f544baca71c521df80ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 20
+  soundName: LightTick
 --- !u!114 &3832864590106599622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16705,6 +16860,7 @@ GameObject:
   - component: {fileID: 3832864590111337273}
   - component: {fileID: 3832864590111337223}
   - component: {fileID: 3832864590111337222}
+  - component: {fileID: 3832864590111337274}
   m_Layer: 5
   m_Name: Speedometer Arrow
   m_TagString: Untagged
@@ -16732,6 +16888,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0.000005722, y: -21.2}
   m_SizeDelta: {x: 56.21513, y: 56.21513}
   m_Pivot: {x: 0.5, y: 0.016976826}
+--- !u!114 &3832864590111337274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3832864590111337272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae9558a7986f544baca71c521df80ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 20
+  soundName: LightTick
 --- !u!222 &3832864590112790474
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16942,6 +17112,7 @@ GameObject:
   - component: {fileID: 3832864590124709533}
   - component: {fileID: 3832864590124709531}
   - component: {fileID: 3832864590124709530}
+  - component: {fileID: 3832864590124709534}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -16971,6 +17142,20 @@ RectTransform:
   m_AnchoredPosition: {x: -28.4915, y: 85.45805}
   m_SizeDelta: {x: 50.7343, y: 500.0787}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3832864590124709534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3832864590124709532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e74134398e002645b66d2bc75eb7bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 0.1
+  soundName: LightTick
 --- !u!114 &3832864590148477762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17020,6 +17205,7 @@ GameObject:
   - component: {fileID: 3832864590148477765}
   - component: {fileID: 3832864590148477763}
   - component: {fileID: 3832864590148477762}
+  - component: {fileID: 3832864590148477766}
   m_Layer: 5
   m_Name: Arrow
   m_TagString: Untagged
@@ -17047,6 +17233,20 @@ RectTransform:
   m_AnchoredPosition: {x: 3, y: -17}
   m_SizeDelta: {x: 9.8361, y: 185.1503}
   m_Pivot: {x: 0.5, y: 0.000000020489097}
+--- !u!114 &3832864590148477766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3832864590148477764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae9558a7986f544baca71c521df80ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 5
+  soundName: Tick
 --- !u!114 &3832864590149608124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17448,6 +17648,7 @@ GameObject:
   - component: {fileID: 3832864590185056698}
   - component: {fileID: 3832864590185056696}
   - component: {fileID: 3832864590185056699}
+  - component: {fileID: 3832864590185056702}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -17455,6 +17656,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &3832864590185056702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3832864590185056701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e74134398e002645b66d2bc75eb7bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 0.1
+  soundName: LightTick
 --- !u!222 &3832864590185142160
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19068,6 +19283,7 @@ GameObject:
   - component: {fileID: 3832864590349942720}
   - component: {fileID: 3832864590349942734}
   - component: {fileID: 3832864590349942721}
+  - component: {fileID: 3832864590349942735}
   m_Layer: 0
   m_Name: Dashboards
   m_TagString: Untagged
@@ -19089,6 +19305,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statusText: {fileID: 3832864590462368664}
   animator: {fileID: 3832864590349942721}
+--- !u!114 &3832864590349942735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3832864590349942723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bddfd4b280d188498e225b42335d4b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &3832864590356735400
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24206,6 +24434,7 @@ GameObject:
   - component: {fileID: 3832864590963441365}
   - component: {fileID: 3832864590963441363}
   - component: {fileID: 3832864590963441362}
+  - component: {fileID: 3832864590963441366}
   m_Layer: 5
   m_Name: Speedometer Arrow
   m_TagString: Untagged
@@ -24233,6 +24462,20 @@ RectTransform:
   m_AnchoredPosition: {x: 129.76619, y: -143.30676}
   m_SizeDelta: {x: 233.8851, y: 29.0089}
   m_Pivot: {x: 1.0000001, y: 0.49999982}
+--- !u!114 &3832864590963441366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3832864590963441364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae9558a7986f544baca71c521df80ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 20
+  soundName: Tick
 --- !u!114 &3832864590968039668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25694,6 +25937,7 @@ GameObject:
   - component: {fileID: 3832864591096602305}
   - component: {fileID: 3832864591096602319}
   - component: {fileID: 3832864591096602318}
+  - component: {fileID: 3832864591096602320}
   m_Layer: 5
   m_Name: Arrow 3
   m_TagString: Untagged
@@ -25759,6 +26003,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3832864591096602304}
   m_CullTransparentMesh: 1
+--- !u!114 &3832864591096602320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3832864591096602304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae9558a7986f544baca71c521df80ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 20
+  soundName: LightTick
 --- !u!114 &3832864591120418040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29134,6 +29392,7 @@ GameObject:
   - component: {fileID: 3832864591488632452}
   - component: {fileID: 3832864591488632450}
   - component: {fileID: 3832864591488632453}
+  - component: {fileID: 3832864591488632456}
   m_Layer: 5
   m_Name: Arrow 1
   m_TagString: Untagged
@@ -29141,6 +29400,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &3832864591488632456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3832864591488632455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae9558a7986f544baca71c521df80ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 20
+  soundName: LightTick
 --- !u!1 &3832864591516782790
 GameObject:
   m_ObjectHideFlags: 0
@@ -29279,6 +29552,7 @@ GameObject:
   - component: {fileID: 3832864591530039362}
   - component: {fileID: 3832864591530039360}
   - component: {fileID: 3832864591530039363}
+  - component: {fileID: 3832864591530039366}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -29286,6 +29560,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &3832864591530039366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3832864591530039365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e74134398e002645b66d2bc75eb7bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 0.1
+  soundName: LightTick
 --- !u!114 &3832864591535021360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32063,6 +32351,7 @@ GameObject:
   - component: {fileID: 3832864591837265248}
   - component: {fileID: 3832864591837265262}
   - component: {fileID: 3832864591837265249}
+  - component: {fileID: 3832864591837265263}
   m_Layer: 5
   m_Name: Arrow 2
   m_TagString: Untagged
@@ -32078,6 +32367,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3832864591837265251}
   m_CullTransparentMesh: 1
+--- !u!114 &3832864591837265263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3832864591837265251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae9558a7986f544baca71c521df80ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 20
+  soundName: LightTick
 --- !u!114 &3832864591864152708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32848,6 +33151,7 @@ GameObject:
   - component: {fileID: 3832864591957406086}
   - component: {fileID: 3832864591957406084}
   - component: {fileID: 3832864591957406087}
+  - component: {fileID: 3832864591957406138}
   m_Layer: 5
   m_Name: Speedometer Arrow
   m_TagString: Untagged
@@ -32855,6 +33159,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &3832864591957406138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3832864591957406137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae9558a7986f544baca71c521df80ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 20
+  soundName: Tick
 --- !u!222 &3832864591978060400
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -33094,6 +33412,7 @@ GameObject:
   - component: {fileID: 3832864591990077545}
   - component: {fileID: 3832864591990077559}
   - component: {fileID: 3832864591990077558}
+  - component: {fileID: 3832864591990077560}
   m_Layer: 5
   m_Name: Arrow
   m_TagString: Untagged
@@ -33159,6 +33478,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3832864591990077544}
   m_CullTransparentMesh: 1
+--- !u!114 &3832864591990077560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3832864591990077544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae9558a7986f544baca71c521df80ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 50
+  soundName: LightTick
 --- !u!222 &3832864591998272840
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -56976,6 +57309,7 @@ GameObject:
   - component: {fileID: 6118193349872760327}
   - component: {fileID: 6118193349872760324}
   - component: {fileID: 6118193349872760325}
+  - component: {fileID: 6118193349872760328}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -57005,6 +57339,20 @@ RectTransform:
   m_AnchoredPosition: {x: -28.4915, y: 85.45805}
   m_SizeDelta: {x: 50.7343, y: 500.0787}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6118193349872760328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6118193349872760326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e74134398e002645b66d2bc75eb7bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  threshold: 0.1
+  soundName: LightTick
 --- !u!1 &6118193349924303812
 GameObject:
   m_ObjectHideFlags: 0

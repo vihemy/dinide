@@ -36,6 +36,13 @@ public class AudioManager : Singleton<AudioManager>
         s.source.PlayOneShot(s.clip);
     }
 
+    public void PlayWithRandomPitch(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        s.source.pitch = UnityEngine.Random.Range(0.7f, 1.3f);
+        s.source.PlayOneShot(s.clip);
+    }
+
     private void SetVolume(string name, float volume)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
