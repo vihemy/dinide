@@ -7,7 +7,6 @@ public class ProcessingState : IState
     public void Enter()
     {
         DashboardManager.Instance.StartProcessingAnimation();
-        
         Logger.Instance.Log("Entering Processing State");
     }
     public void Execute() { /* Logic to update during the idle state */ }
