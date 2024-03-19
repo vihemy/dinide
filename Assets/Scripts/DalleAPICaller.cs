@@ -39,19 +39,37 @@ public class DalleAPICaller : Singleton<DalleAPICaller>
         UnityWebRequest request = CreateDalleWebRequest(entry.prompt);
 
         logger.Log($"DALL-E request send with prompt: {entry.prompt}");
-
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.Success)
         {
+            logger.Log($"Dalle request successful: {entry.prompt}");
             ProcessResponse(request.downloadHandler.text, entry);
         }
         else
         {
-            Debug.LogError($"Error in Dalle Request: {request.error}");
+            Debug.LogError($"Dalle request failed: {request.error}");
+            HandleRequestError(request);
         }
 
         isRequesting = false;
+    }
+
+    private void HandleRequestError(UnityWebRequest request)
+    {
+        switch (request.result)
+        {
+            case UnityWebRequest.Result.ConnectionError:
+                GameManager.Instance.AbortProcessing(ErrorType.ConnectionError);
+                break;
+            case UnityWebRequest.Result.ProtocolError:
+                GameManager.Instance.AbortProcessing(ErrorType.RequestError);
+                break;
+            default:
+                GameManager.Instance.AbortProcessing(ErrorType.UnknownError);
+                break;
+        }
+        Debug.LogError($"Dalle request failed: {request.error}");
     }
 
     private UnityWebRequest CreateDalleWebRequest(string prompt)
