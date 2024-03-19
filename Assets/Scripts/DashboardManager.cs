@@ -7,33 +7,32 @@ using TMPro;
 
 public class DashboardManager : Singleton<DashboardManager>
 {
-    [SerializeField] private TextMeshProUGUI statusText;
     [SerializeField] private Animator animator;
 
     public Action OnDashboardAnimationEnd;
 
-    public void IdleDashBoard()
+    void Start()
     {
-        statusText.text = "Venter på idé";
-    }
-
-    public void StartDashBoard()
-    {
-        statusText.text = "Behandler idé";
-        animator.SetTrigger("Start");
+        animator.ResetTrigger("Start");
         animator.ResetTrigger("Stop");
     }
 
-    public void StopDashBoard()
+    public void StartProcessingAnimation()
     {
-        statusText.text = "Behandling færdig";
-        animator.SetTrigger("Stop");
         animator.ResetTrigger("Start");
+        animator.SetTrigger("Start");
+
+    }
+
+    public void StartIdleAnimation()
+    {
+        animator.ResetTrigger("Stop");
+        animator.SetTrigger("Stop");
     }
 
     public void TriggerAnimationEndEvent() // is triggered from RunDashboard animation
     {
-        Debug.Log("Animation complete");
+        Debug.Log("DashboardManager.OnDashboardAnimationEnd called");
         OnDashboardAnimationEnd?.Invoke();
     }
 }
