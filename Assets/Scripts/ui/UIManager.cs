@@ -11,8 +11,8 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject IdlePanel;
     [SerializeField] private GameObject InputPanel;
     [SerializeField] private GameObject InputPanelLock;
-    [SerializeField] private Image nut;
-    [SerializeField] private Image checkmark;
+    [SerializeField] private GameObject nutGO;
+    [SerializeField] private GameObject checkmarkGO;
 
     public void EnableIdleState(bool state)
     {
@@ -32,12 +32,12 @@ public class UIManager : Singleton<UIManager>
         switch (icon)
         {
             case PanelIcon.Nut:
-                nut.enabled = true;
-                checkmark.enabled = false;
+                nutGO.SetActive(true);
+                checkmarkGO.SetActive(false);
                 break;
             case PanelIcon.Checkmark:
-                nut.enabled = false;
-                checkmark.enabled = true;
+                nutGO.SetActive(false);
+                checkmarkGO.SetActive(true);
                 break;
             default:
                 break;
