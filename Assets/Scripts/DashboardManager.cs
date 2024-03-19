@@ -19,15 +19,14 @@ public class DashboardManager : Singleton<DashboardManager>
 
     public void StartProcessingAnimation()
     {
-        animator.ResetTrigger("Start");
         animator.SetTrigger("Start");
-
+        animator.ResetTrigger("Stop");
     }
 
     public void StartIdleAnimation()
     {
-        animator.ResetTrigger("Stop");
         animator.SetTrigger("Stop");
+        animator.ResetTrigger("Start");
     }
 
     public void TriggerAnimationEndEvent() // is triggered from RunDashboard animation
