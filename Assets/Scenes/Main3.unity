@@ -11129,6 +11129,8 @@ GameObject:
   - component: {fileID: 1441504016}
   - component: {fileID: 1441504015}
   - component: {fileID: 1441504017}
+  - component: {fileID: 1441504018}
+  - component: {fileID: 1441504019}
   m_Layer: 0
   m_Name: PopupController
   m_TagString: Untagged
@@ -11166,6 +11168,8 @@ MonoBehaviour:
   profanityPopupOpener: {fileID: 1441504016}
   emptyFieldPopupOpener: {fileID: 1441504015}
   requestErrorPopupOpener: {fileID: 1441504017}
+  networkErrorPopupOpener: {fileID: 1441504018}
+  unknownErrorPopupOpener: {fileID: 1441504019}
 --- !u!114 &1441504015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11205,6 +11209,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popupPrefab: {fileID: 7434244013109961467, guid: 4e5ea12e2fe17af48a41c6b4b9781a2e, type: 3}
+--- !u!114 &1441504018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441504012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a36da76b1214b1bb1fba58c59d6ee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupPrefab: {fileID: 7434244013109961467, guid: bd676fe4ef568d04f9bc1cedfb698b9f, type: 3}
+--- !u!114 &1441504019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441504012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a36da76b1214b1bb1fba58c59d6ee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popupPrefab: {fileID: 7434244013109961467, guid: e35ce18d8c9413c408ee2b097155ab29, type: 3}
 --- !u!1 &1464152436
 GameObject:
   m_ObjectHideFlags: 0
@@ -12605,8 +12635,8 @@ MonoBehaviour:
   IdlePanel: {fileID: 1548392754}
   InputPanel: {fileID: 1663759491}
   InputPanelLock: {fileID: 907439493}
-  nut: {fileID: 1674332006}
-  checkmark: {fileID: 827986968}
+  nutGO: {fileID: 1674332004}
+  checkmarkGO: {fileID: 827986966}
 --- !u!1 &1649897068
 GameObject:
   m_ObjectHideFlags: 0
