@@ -80,12 +80,13 @@ public class ImageDownloader : Singleton<ImageDownloader>
 
     private void OnDashboardAnimationEnded()
     {
+        Debug.Log("ImageDownloader.OnDashboardAnimationEnded called");
         AddToCache(finalizedEntry);
+        GameManager.Instance.FinishProcessing();
     }
 
     private void AddToCache(EntryData entryData)
     {
-        GameManager.Instance.FinishProcessing();
         if (entryData != null && entryData.texture != null)
         {
             EntryCache.Instance.AddEntryDuringRuntime(entryData);
@@ -105,7 +106,6 @@ public class ImageDownloader : Singleton<ImageDownloader>
     {
         if (DashboardManager.Instance != null)
         {
-
             DashboardManager.Instance.OnDashboardAnimationEnd -= OnDashboardAnimationEnded;
         }
     }
