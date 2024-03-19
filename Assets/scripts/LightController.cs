@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 [System.Serializable]
 public class LightData
@@ -17,16 +16,8 @@ public class LightController : Singleton<LightController>
     [Header("Flash")]
     public float intensityFactor = 1.0f; // Factor to scale the intensity of all lights
     [SerializeField] public float flashDuration = 0.5f;
-
     public float flashDelay = 1.0f;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Flash();
-        }
-    }
     private void Start()
     {
         ResetLightsAlpha();
@@ -45,11 +36,13 @@ public class LightController : Singleton<LightController>
 
     public void Flash()
     {
+
         StartCoroutine(FlashRoutine());
     }
 
     private IEnumerator FlashRoutine()
     {
+        AudioManager.Instance.PlayOneShot("FlashBuild");
         // First half of the flash: increasing values
         float timer = 0.0f;
         while (timer < flashDuration / 2)
@@ -61,6 +54,8 @@ public class LightController : Singleton<LightController>
 
             yield return null;
         }
+
+        AudioManager.Instance.PlayOneShot("FlashPayoff");
 
         // Second half of the flash: decreasing values
         timer = 0.0f;
