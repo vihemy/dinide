@@ -485,8 +485,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7488873506955255640, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_text
-      value: "Maskinen har mistet forbindelse til netv\xE6rket.\nKontakt en pesonale.
-        Tak."
+      value: "Maskinen har mistet forbindelse til netv\xE6rket.\nKontakt venligst
+        pesonalet."
       objectReference: {fileID: 0}
     - target: {fileID: 7488873506955255640, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_fontAsset
