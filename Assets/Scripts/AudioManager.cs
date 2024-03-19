@@ -24,12 +24,6 @@ public class AudioManager : Singleton<AudioManager>
         s.source.Play();
     }
 
-    public void Stop(string name)
-    {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        s.source.Stop();
-    }
-
     public void PlayOneShot(string name)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -41,6 +35,23 @@ public class AudioManager : Singleton<AudioManager>
         Sound s = Array.Find(sounds, sound => sound.name == name);
         s.source.pitch = UnityEngine.Random.Range(0.7f, 1.3f);
         s.source.PlayOneShot(s.clip);
+    }
+
+    public void Stop(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        s.source.Stop();
+    }
+
+    public void StopAllSounds()
+    {
+        foreach (Sound s in sounds)
+        {
+            if (s.source.isPlaying)
+            {
+                StartCoroutine(FadeOutAndStopCoroutine(s.source, 0.2f));
+            }
+        }
     }
 
     private void SetVolume(string name, float volume)
@@ -73,12 +84,17 @@ public class AudioManager : Singleton<AudioManager>
         while (audioSource.volume > 0)
         {
             audioSource.volume -= startVolume * Time.deltaTime / fadeTime;
+            if (audioSource.volume < 0)
+            {
+                audioSource.volume = 0; // Ensure volume is exactly zero
+            }
             yield return null;
         }
 
         audioSource.Stop();
         audioSource.volume = startVolume;
     }
+
 
     private IEnumerator FadeInAndStartCoroutine(AudioSource audioSource, float fadeTime)
     {
@@ -124,7 +140,7 @@ public class Sound
     [Range(0f, 1f)]
     public float volume = 1;
 
-    [Range(-10f, 10f)]
+    [Range(0f, 10f)]
     public float pitch = 1;
 
     public bool loop;
