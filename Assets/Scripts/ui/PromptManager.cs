@@ -19,7 +19,7 @@ public class PromptManager : Singleton<PromptManager>
         ResetInputField();
         promptInputField.onEndEdit.AddListener(delegate { ValidateInputs(); });
         authorInputField.onEndEdit.AddListener(delegate { ValidateInputs(); });
-        ageInputField.onEndEdit.AddListener(delegate { ValidateInputs(); });
+        ageInputField.onValueChanged.AddListener(delegate { ValidateInputs(); });
     }
 
     private void ValidateInputs()
@@ -40,8 +40,8 @@ public class PromptManager : Singleton<PromptManager>
         if (!AreFieldsEmptyOrProfane())
         {
             EntryData entry = CreateEntryData();
-            DalleAPICaller.Instance.RequestDalle(entry);
             Logger.Instance.Log($"Input entered: Prompt = {entry.prompt}, Author = {entry.author}, Age = {entry.age}");
+            DalleAPICaller.Instance.RequestDalle(entry);
             ResetInputField();
         }
     }
@@ -60,12 +60,11 @@ public class PromptManager : Singleton<PromptManager>
     {
         if (AreFieldsEmpty())
         {
-            // PopupController.Instance.DisplayEmptyFieldPopup();
             return true;
         }
         else if (DoesFieldsContainProfanity())
         {
-            PopupController.Instance.DisplayProfanityPopup();
+            PopupController.Instance.DisplayPopup(ErrorType.Profanity);
             return true;
         }
         return false;

@@ -9,15 +9,40 @@ public class PopupController : Singleton<PopupController>
 {
     [SerializeField] private PopupOpener profanityPopupOpener;
     [SerializeField] private PopupOpener emptyFieldPopupOpener;
+    [SerializeField] private PopupOpener requestErrorPopupOpener;
+    [SerializeField] private PopupOpener networkErrorPopupOpener;
+    [SerializeField] private PopupOpener unknownErrorPopupOpener;
 
-
-    public void DisplayEmptyFieldPopup()
+    public void DisplayPopup(ErrorType type)
     {
-        emptyFieldPopupOpener.OpenPopup();
+        switch (type)
+        {
+            case ErrorType.EmptyField:
+                emptyFieldPopupOpener.OpenPopup();
+                break;
+            case ErrorType.Profanity:
+                profanityPopupOpener.OpenPopup();
+                break;
+            case ErrorType.ConnectionError:
+                networkErrorPopupOpener.OpenPopup();
+                break;
+            case ErrorType.RequestError:
+                requestErrorPopupOpener.OpenPopup();
+                break;
+            case ErrorType.UnknownError:
+                unknownErrorPopupOpener.OpenPopup();
+                break;
+            default:
+                break;
+        }
     }
+}
 
-    public void DisplayProfanityPopup()
-    {
-        profanityPopupOpener.OpenPopup();
-    }
+public enum ErrorType
+{
+    EmptyField,
+    Profanity,
+    ConnectionError,
+    RequestError,
+    UnknownError,
 }

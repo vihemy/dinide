@@ -7,8 +7,8 @@ public class SlideshowController : Singleton<SlideshowController>
 {
     [Header("UI Elements")]
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private TextMeshProUGUI promptText;
-    [SerializeField] private TextMeshProUGUI authorInfoText;
+    [SerializeField] private TextMeshPro promptText; // Using TextMeshPro  over UGUI for better control of layering
+    [SerializeField] private TextMeshPro authorInfoText; // Using TextMeshPro  over UGUI for better control of layering
     [Header("Configuration")]
     [SerializeField] private float standardDisplayDuration = 5f;
     [SerializeField] private float newEntryDisplayDuration = 10f;

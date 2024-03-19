@@ -33,7 +33,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4869440636079075728, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_text
-      value: Tomt felt registreret
+      value: Hmm...
       objectReference: {fileID: 0}
     - target: {fileID: 5696364485467307131, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_AnchorMax.y
@@ -181,7 +181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5943255748370582131, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_Name
-      value: Popup (empty field)
+      value: Popup (request error)
       objectReference: {fileID: 0}
     - target: {fileID: 5999935052759414337, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_AnchorMax.y
@@ -201,7 +201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7488873506955255640, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_text
-      value: "Ingen tomme felter. Pr\xF8v igen."
+      value: "Maskinen forst\xE5r ikke  id\xE9en. Omformuler og pr\xF8v igen."
       objectReference: {fileID: 0}
     - target: {fileID: 7848408534045898819, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_AnchorMax.y
@@ -234,7 +234,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5943255748370582131, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
   m_PrefabInstance: {fileID: 3841871851077970056}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &3378653551323602533
+--- !u!82 &192549707399136123
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

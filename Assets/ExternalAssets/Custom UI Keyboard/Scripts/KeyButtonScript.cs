@@ -87,7 +87,6 @@ public class KeyButtonScript : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     /// </summary>
     public void PressButton()
     {
-        AudioManager.Instance.PlayOneShot("KeyPress");
         switch (keyType)
         {
             case KeyClass.KeyType.Character:
