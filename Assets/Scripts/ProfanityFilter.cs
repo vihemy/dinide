@@ -35,14 +35,15 @@ public class ProfanityFilter : Singleton<ProfanityFilter>
 
     public bool ContainsProfanity(string input)
     {
-        string[] words = input.ToLower().Split(' ', ',', '.', '!', '?', ';', ':', '\n', '\t');
+        string[] words = input.Trim().ToLower().Split(new char[] { ' ', ',', '.', '!', '?', ';', ':', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries);
         foreach (string word in words)
         {
-            if (profanityWords.Contains(word))
+            if (!string.IsNullOrWhiteSpace(word) && profanityWords.Contains(word))
             {
                 return true;
             }
         }
         return false;
     }
+
 }
