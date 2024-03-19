@@ -35,6 +35,14 @@ public class GameManager : Singleton<GameManager>
         PromptManager.Instance.CreateEntryFromPrompt();
     }
 
+    public void AbortProcessing(ErrorType errorType)
+    {
+        stateManager.ChangeState(new InputState());
+        AudioManager.Instance.StopAllSounds();
+        DashboardManager.Instance.StartIdleAnimation();
+        PopupController.Instance.DisplayPopup(errorType);
+    }
+
     public void FinishProcessing()
     {
         stateManager.ChangeState(new OutputState());
