@@ -16,8 +16,7 @@ public class InputState : IState
     }
     public void Exit()
     {
-        UIManager.Instance.LockInputPanel(true);
-        UIManager.Instance.SetPanelIcon(UIManager.PanelIcon.Nut);
+
         Logger.Instance.Log("Exiting Input State");
     }
 }
