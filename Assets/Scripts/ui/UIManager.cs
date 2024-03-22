@@ -11,7 +11,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject IdlePanel;
     [SerializeField] private GameObject InputPanel;
     [SerializeField] private GameObject InputPanelLock;
-    [SerializeField] private GameObject nutGO;
+    [SerializeField] private GameObject progressBarGO;
     [SerializeField] private GameObject checkmarkGO;
 
     public void EnableIdleState(bool state)
@@ -31,12 +31,12 @@ public class UIManager : Singleton<UIManager>
     {
         switch (icon)
         {
-            case PanelIcon.Nut:
-                nutGO.SetActive(true);
+            case PanelIcon.ProgressBar:
+                progressBarGO.SetActive(true);
                 checkmarkGO.SetActive(false);
                 break;
             case PanelIcon.Checkmark:
-                nutGO.SetActive(false);
+                progressBarGO.SetActive(false);
                 checkmarkGO.SetActive(true);
                 break;
             default:
@@ -46,7 +46,7 @@ public class UIManager : Singleton<UIManager>
 
     public enum PanelIcon
     {
-        Nut,
+        ProgressBar,
         Checkmark
     }
 }
