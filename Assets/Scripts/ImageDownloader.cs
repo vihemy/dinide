@@ -8,12 +8,14 @@ public class ImageDownloader : Singleton<ImageDownloader>
 {
 
     private Logger logger;
+    private DashboardManager dashboardManager;
 
     private EntryData finalizedEntry;
 
     new void Awake()
     {
         logger = Logger.Instance;
+        dashboardManager = DashboardManager.Instance; // assign as private variable to avoid bug in OnDestroy when nullchecking DashboardManager.Instance
         DashboardManager.Instance.OnDashboardAnimationEnd += OnDashboardAnimationEnded;
     }
 
@@ -104,9 +106,9 @@ public class ImageDownloader : Singleton<ImageDownloader>
 
     private void OnDestroy()
     {
-        if (DashboardManager.Instance != null)
+        if (dashboardManager != null)
         {
-            DashboardManager.Instance.OnDashboardAnimationEnd -= OnDashboardAnimationEnded;
+            dashboardManager.OnDashboardAnimationEnd -= OnDashboardAnimationEnded;
         }
     }
 
