@@ -5694,7 +5694,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &827986967
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5980,9 +5980,9 @@ MonoBehaviour:
     source: {fileID: 0}
     pan: 0
   - name: ElectricityR
-    clip: {fileID: 8300000, guid: f5c7ad3e2ac9fcf41a8006ff30061c45, type: 3}
-    volume: 0.15
-    pitch: 1
+    clip: {fileID: 8300000, guid: b8795491a6e0ae24f83a7d21c281b7b6, type: 3}
+    volume: 0.1
+    pitch: 0.75
     loop: 1
     source: {fileID: 0}
     pan: 0.9
@@ -15514,7 +15514,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: bac75f822ea214f11a80370f4a0de696, type: 3}
   m_FillDirection: 0
-  m_FillAmount: 0.345
+  m_FillAmount: 1
   m_FillCenter: 1
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &2687090996694887836
@@ -15534,7 +15534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2687090996694887837
 RectTransform:
   m_ObjectHideFlags: 0
