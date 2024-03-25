@@ -11,7 +11,6 @@ public class PromptManager : Singleton<PromptManager>
     [SerializeField] private TMP_InputField promptInputField;
     [SerializeField] private TMP_InputField authorInputField;
     [SerializeField] private TMP_InputField ageInputField;
-
     public ButtonListener sendButton;
 
     void Start()
@@ -27,7 +26,7 @@ public class PromptManager : Singleton<PromptManager>
         sendButton.MakeInteractable(!AreFieldsEmptyOrProfane());
     }
 
-    private void ResetInputField()
+    public void ResetInputField()
     {
         promptInputField.text = "";
         authorInputField.text = "";

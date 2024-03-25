@@ -5,12 +5,32 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-
     private StateManager stateManager = new StateManager();
+    public TimerWithCoroutine timer;
+    [SerializeField] private int timerDuration = 30;
+    public int TimerDuration => timerDuration;
     void Start()
     {
         InstantiateEntrySystem();
         stateManager.ChangeState(new IdleState());
+        timer.StartTimer(timerDuration, ResetGameToIdle);
+    }
+
+    void Update()
+    {
+        if (Input.touchCount > 0 || Input.anyKeyDown)
+        {
+            ResetTimer();
+        }
+    }
+
+    private void ResetTimer()
+    {
+        if (stateManager.CurrentState is InputState)
+        {
+            timer.StopTimer();
+            timer.StartTimer(timerDuration, ResetGameToIdle);
+        }
     }
 
     void InstantiateEntrySystem()
@@ -46,5 +66,10 @@ public class GameManager : Singleton<GameManager>
     public void FinishProcessing()
     {
         stateManager.ChangeState(new OutputState());
+    }
+
+    public void ResetGameToIdle()
+    {
+        stateManager.ChangeState(new IdleState());
     }
 }
