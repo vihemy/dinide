@@ -1262,7 +1262,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 8
-  m_Sprite: {fileID: 21300000, guid: 785baf4112372c847bf2e42905034913, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0a591a91c26fa064bafcdb7fb7653543, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1966,8 +1966,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Jeg er en lille sommerfugl, der flyver rundt og rundt i i denne lille
-    verden. Hvor er det bare dejligt at v\xE6re mig. \nDette rer en ekstra s\xE6tning."
+  m_text: "Hvordan redder vi det danske havmilj\xF8?\nSkriv en id\xE9 p\xE5 displayet
+    nedenfor"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eaa028ef3722e6a4184047e6bf9cb42a, type: 2}
   m_sharedMaterial: {fileID: 6783558449613051648, guid: eaa028ef3722e6a4184047e6bf9cb42a, type: 2}
@@ -1994,7 +1994,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 204.35
+  m_fontSize: 255.45
   m_fontSizeBase: 300
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -5981,7 +5981,7 @@ MonoBehaviour:
     pan: 0
   - name: ElectricityR
     clip: {fileID: 8300000, guid: f5c7ad3e2ac9fcf41a8006ff30061c45, type: 3}
-    volume: 0.1
+    volume: 0.15
     pitch: 1
     loop: 1
     source: {fileID: 0}
@@ -6158,6 +6158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 843671009}
   - component: {fileID: 843671008}
+  - component: {fileID: 843671010}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6177,6 +6178,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b012d72d030c004280504ed4a05f792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: {fileID: 843671010}
+  timerDuration: 30
 --- !u!4 &843671009
 Transform:
   m_ObjectHideFlags: 0
@@ -6192,6 +6195,18 @@ Transform:
   m_Father: {fileID: 1674856754}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &843671010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843671007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 559495f1a2d59a04181d5712879837a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &868916933
 GameObject:
   m_ObjectHideFlags: 0
@@ -7744,7 +7759,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ida Maria Lund, 60
+  m_text: Kattegatcentret
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3cd4009d54abe1a4791b0c8a2d0459e4, type: 2}
   m_sharedMaterial: {fileID: 3301529312316264292, guid: 3cd4009d54abe1a4791b0c8a2d0459e4, type: 2}
@@ -7986,6 +8001,50 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1062250698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1062250699}
+  - component: {fileID: 1062250700}
+  m_Layer: 0
+  m_Name: Timer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1062250699
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062250698}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1674856754}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1062250700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062250698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 559495f1a2d59a04181d5712879837a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1072968729
 GameObject:
   m_ObjectHideFlags: 0
@@ -12864,6 +12923,7 @@ Transform:
   - {fileID: 1618365503}
   - {fileID: 5989893805715594687}
   - {fileID: 841116939}
+  - {fileID: 1062250699}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14864,7 +14924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea5b40bbcfa90344a80c93c4c61d29ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isVisible: 1
+  isVisible: 0
 --- !u!114 &2045418767
 MonoBehaviour:
   m_ObjectHideFlags: 0

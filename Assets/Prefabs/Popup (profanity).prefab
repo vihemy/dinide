@@ -279,6 +279,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 673062730699392405, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1810193105653785061, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -303,9 +307,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2070901463476129747, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070901463476129747, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2329903425035961396, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_Name
       value: Text (DA)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583005793925654752, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4869440636079075728, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_text
@@ -353,7 +369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5943255747502573128, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -382.19
+      value: -532.81
       objectReference: {fileID: 0}
     - target: {fileID: 5943255747502573131, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_IsActive
@@ -482,6 +498,10 @@ PrefabInstance:
     - target: {fileID: 6852098800340478209, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_Spacing
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6886563125289205605, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
+      propertyPath: m_Material
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7488873506955255640, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_text
