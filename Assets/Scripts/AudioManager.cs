@@ -49,7 +49,7 @@ public class AudioManager : Singleton<AudioManager>
         {
             if (s.source.isPlaying)
             {
-                StartCoroutine(FadeOutAndStopCoroutine(s.source, 0.2f));
+                StartCoroutine(FadeOutAndStopCoroutine(s.source, 0.5f));
             }
         }
     }
