@@ -30,6 +30,7 @@ public class EntryLoader : Singleton<EntryLoader>
         for (int i = 0; i < Mathf.Min(sortedFiles.Length, maxEntries); i++)
         {
             FileInfo file = sortedFiles[i];
+            Debug.Log($"Entry {file.Name} is relevant");
             string jsonPath = file.FullName;
             string imagePath = Path.ChangeExtension(jsonPath, ".jpg");
             EntryData entryData = LoadJsonAndImageIntoEntry(jsonPath, imagePath);
@@ -73,7 +74,8 @@ public class EntryLoader : Singleton<EntryLoader>
     {
         if (entryData != null && entryData.texture != null)
         {
-            EntryCache.Instance.AddEntryPreRuntime(entryData);
+            EntryCache.Instance.AddEntryIfRelevant(entryData);
+
         }
         else
         {

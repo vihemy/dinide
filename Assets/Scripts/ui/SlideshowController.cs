@@ -107,6 +107,7 @@ public class SlideshowController : Singleton<SlideshowController>
 
         // Display the new entry for its unique duration, without fade
         yield return DisplayEntry(newEntry, newEntryDisplayDuration, false);
+        EntryCache.Instance.AddEntryIfRelevant(newEntry);
 
         // Restart the slideshow after the new entry has been displayed
         StartSlideshow();
