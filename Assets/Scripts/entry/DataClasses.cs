@@ -4,14 +4,17 @@ using UnityEngine;
 [System.Serializable]
 public class DalleRequestData
 {
-    public string model = "dall-e-3";
+    public string model;
     public string prompt;
-    public int n = 1;
-    public string size = "1024x1024";
+    public int n;
+    public string size;
 
     public DalleRequestData(string prompt)
     {
         this.prompt = prompt;
+        this.model = ConfigLoader.Instance.LoadFromConfig("DALLE_MODEL");
+        int.TryParse(ConfigLoader.Instance.LoadFromConfig("DALLE_N"), out this.n);
+        this.size = ConfigLoader.Instance.LoadFromConfig("DALLE_SIZE");
     }
 }
 
@@ -39,7 +42,7 @@ public class EntryData
     public string imageUrl;
     public string revisedPrompt;
     public Texture2D texture;
-    public bool isRelevant; // Nullable boolean to allow for null value if not evaluated
+    public bool isRelevant;
 
     public EntryData(
         string prompt = null,
@@ -66,12 +69,13 @@ public class EntryData
 [System.Serializable]
 public class CompletionRequestData
 {
-    public string model = "gpt-3.5-turbo-0125";
+    public string model;
     public Message[] messages;
 
     public CompletionRequestData(string prompt)
     {
-        string systemContext = "Your job is to determine if the prompted sentence is related to one or more of the following themes: \"ocean\", \"beach\", \"pollution\", \"garbage\", \"sea animals\", \"fish\", \"farming\", \"fishing\". The prompted sentence can be in multiple languages. Answer with 'Related' or 'Not related'.";
+        model = ConfigLoader.Instance.LoadFromConfig("GPT_MODEL");
+        string systemContext = ConfigLoader.Instance.LoadFromConfig("SYSTEM_CONTEXT");
 
         messages = new Message[]
         {
