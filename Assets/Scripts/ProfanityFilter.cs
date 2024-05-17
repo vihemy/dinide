@@ -10,9 +10,9 @@ public class ProfanityFilter : Singleton<ProfanityFilter>
     void Start()
     {
         profanityWords = new HashSet<string>();
-        LoadProfanityWords("da.txt");
-        LoadProfanityWords("en.txt");
-        LoadProfanityWords("de.txt");
+        LoadProfanityWords("profanity_en.txt");
+        LoadProfanityWords("profanity_de.txt");
+        LoadProfanityWords("profanity_da.txt");
     }
 
     private void LoadProfanityWords(string fileName)
