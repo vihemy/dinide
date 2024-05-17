@@ -17,7 +17,6 @@ public abstract class BaseAPICaller : MonoBehaviour
 
     protected virtual void Start()
     {
-        apiURL = ConfigLoader.Instance.LoadFromConfig("API_URL");
         apiKey = ConfigLoader.Instance.LoadFromConfig("API_KEY");
     }
 
@@ -37,6 +36,7 @@ public abstract class BaseAPICaller : MonoBehaviour
         else
         {
             Debug.LogError($"Request failed: {request.error}");
+            HandleRequestError(request);
             onError?.Invoke(request);
         }
 
@@ -56,6 +56,24 @@ public abstract class BaseAPICaller : MonoBehaviour
         ConfigureMemoryManagement(request);
 
         return request;
+    }
+
+
+    private void HandleRequestError(UnityWebRequest request)
+    {
+        switch (request.result)
+        {
+            case UnityWebRequest.Result.ConnectionError:
+                GameManager.Instance.AbortProcessing(ErrorType.ConnectionError);
+                break;
+            case UnityWebRequest.Result.ProtocolError:
+                GameManager.Instance.AbortProcessing(ErrorType.RequestError);
+                break;
+            default:
+                GameManager.Instance.AbortProcessing(ErrorType.UnknownError);
+                break;
+        }
+        Debug.LogError($"Dalle request failed: {request.error}");
     }
 
     private static void ConfigureMemoryManagement(UnityWebRequest request)

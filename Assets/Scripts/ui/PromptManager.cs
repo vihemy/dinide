@@ -11,6 +11,8 @@ public class PromptManager : Singleton<PromptManager>
     [SerializeField] private TMP_InputField promptInputField;
     [SerializeField] private TMP_InputField authorInputField;
     [SerializeField] private TMP_InputField ageInputField;
+    [SerializeField] private DalleAPICaller dalleAPICaller;
+    [SerializeField] private CompletionAPICaller completionAPICaller;
     public ButtonListener sendButton;
 
     void Start()
@@ -39,8 +41,7 @@ public class PromptManager : Singleton<PromptManager>
         if (!AreFieldsEmptyOrProfane())
         {
             EntryData entry = CreateEntryData();
-            Logger.Instance.Log($"Input entered: Prompt = {entry.prompt}, Author = {entry.author}, Age = {entry.age}");
-            DalleAPICaller.Instance.RequestDalle(entry);
+            completionAPICaller.CheckPromptRelated(entry, OnCompletionResponse);
             ResetInputField();
         }
     }
@@ -51,8 +52,16 @@ public class PromptManager : Singleton<PromptManager>
         string author = authorInputField.text;
         string age = ageInputField.text;
 
-        EntryData entry = new EntryData(prompt, author, age); // OBS! Be carefull to fill out the appropriate fields in the EntryData constructor!
+        EntryData entry = new EntryData(prompt, author, age); // Be careful to fill out the appropriate fields in the EntryData constructor!
+
+        Logger.Instance.Log($"Input entered: Prompt = {entry.prompt}");
         return entry;
+    }
+
+    private void OnCompletionResponse(EntryData entry)
+    {
+        // After checking relevance, pass the updated entry to DalleAPICaller
+        dalleAPICaller.RequestDalle(entry);
     }
 
     public bool AreFieldsEmptyOrProfane()
@@ -78,6 +87,7 @@ public class PromptManager : Singleton<PromptManager>
     {
         return ProfanityFilter.Instance.ContainsProfanity(promptInputField.text) || ProfanityFilter.Instance.ContainsProfanity(authorInputField.text) || ProfanityFilter.Instance.ContainsProfanity(ageInputField.text);
     }
+
     void OnDestroy()
     {
         // Unsubscribe to avoid memory leaks

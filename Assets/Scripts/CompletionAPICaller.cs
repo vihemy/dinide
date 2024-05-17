@@ -5,7 +5,13 @@ using UnityEngine.Networking;
 
 public class CompletionAPICaller : BaseAPICaller
 {
-    public void CheckPromptRelated(EntryData entry)
+    protected override void Start()
+    {
+        base.Start();
+        apiURL = ConfigLoader.Instance.LoadFromConfig("API_CHAT_URL");
+    }
+
+    public void CheckPromptRelated(EntryData entry, System.Action<EntryData> callback)
     {
         if (isRequesting)
         {
@@ -15,7 +21,8 @@ public class CompletionAPICaller : BaseAPICaller
         {
             var requestData = new CompletionRequestData(entry.prompt);
             string requestJson = JsonUtility.ToJson(requestData);
-            StartCoroutine(SendRequestCoroutine(requestJson, (response) => ProcessResponse(response, entry), HandleRequestError));
+            Debug.Log("Request JSON: " + requestJson); // Log the JSON payload
+            StartCoroutine(SendRequestCoroutine(requestJson, (response) => ProcessResponse(response, entry, callback), HandleRequestError));
         }
     }
 
@@ -25,13 +32,25 @@ public class CompletionAPICaller : BaseAPICaller
         // Handle the error appropriately here
     }
 
-    private void ProcessResponse(string jsonResponse, EntryData entry)
+    private void ProcessResponse(string jsonResponse, EntryData entry, System.Action<EntryData> callback)
     {
+        Debug.Log("Response received: " + jsonResponse);
         var response = JsonUtility.FromJson<CompletionResponse>(jsonResponse);
-        string result = response.choices[0].message.content.Trim();
-        Debug.Log("Result: " + result);
+        if (response != null && response.choices != null && response.choices.Length > 0)
+        {
+            string result = response.choices[0].message.content.Trim();
+            Debug.Log("Result: " + result);
 
-        // Update the EntryData instance based on the result
-        entry.isRelavant = result.Equals("Related", System.StringComparison.OrdinalIgnoreCase) ? true : (bool?)false;
+            // Update the EntryData instance based on the result
+            entry.isRelevant = result.Equals("Related", System.StringComparison.OrdinalIgnoreCase) ? true : (bool?)false;
+            Debug.Log($"Is relevant for {entry.prompt}: {entry.isRelevant}");
+
+            // Invoke the callback with the updated entry
+            callback?.Invoke(entry);
+        }
+        else
+        {
+            Debug.LogError("Invalid response structure or no choices found");
+        }
     }
 }

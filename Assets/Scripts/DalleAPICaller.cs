@@ -5,6 +5,12 @@ using UnityEngine.Networking;
 
 public class DalleAPICaller : BaseAPICaller
 {
+    protected override void Start()
+    {
+        base.Start();
+        apiURL = ConfigLoader.Instance.LoadFromConfig("API_IMAGE_URL");
+    }
+
     public void RequestDalle(EntryData entry)
     {
         if (isRequesting)
@@ -13,31 +19,23 @@ public class DalleAPICaller : BaseAPICaller
         }
         else
         {
-            string requestData = JsonUtility.ToJson(new DalleRequestData(entry.prompt));
-            StartCoroutine(SendRequestCoroutine(requestData, (response) => ProcessResponse(response, entry), HandleRequestError));
+            var requestData = new DalleRequestData(entry.prompt);
+            string requestJson = JsonUtility.ToJson(requestData);
+            Debug.Log("Request JSON: " + requestJson); // Log the JSON payload
+            StartCoroutine(SendRequestCoroutine(requestJson, (response) => ProcessResponse(response, entry), HandleRequestError));
         }
     }
 
     private void HandleRequestError(UnityWebRequest request)
     {
-        switch (request.result)
-        {
-            case UnityWebRequest.Result.ConnectionError:
-                GameManager.Instance.AbortProcessing(ErrorType.ConnectionError);
-                break;
-            case UnityWebRequest.Result.ProtocolError:
-                GameManager.Instance.AbortProcessing(ErrorType.RequestError);
-                break;
-            default:
-                GameManager.Instance.AbortProcessing(ErrorType.UnknownError);
-                break;
-        }
         Debug.LogError($"Dalle request failed: {request.error}");
+        // Handle the error appropriately here
     }
 
     private void ProcessResponse(string jsonResponse, EntryData entry)
     {
-        DalleResponse response = JsonUtility.FromJson<DalleResponse>(jsonResponse);
+        Debug.Log("Response received: " + jsonResponse);
+        var response = JsonUtility.FromJson<DalleResponse>(jsonResponse);
         if (response != null && response.data != null && response.data.Length > 0)
         {
             entry.created = response.created;

@@ -66,28 +66,27 @@ public class EntryData
 [System.Serializable]
 public class CompletionRequestData
 {
-    public string model = "gpt-4";
-    public RequestMessage[] messages;
+    public string model = "gpt-3.5-turbo-0125";
+    public Message[] messages;
 
     public CompletionRequestData(string prompt)
     {
-        string systemContext = "Your job is to determine if the prompted sentence is related to one or more of the following themes: \"ocean\", \"beach\", \"pollution\", \"garbage\", \"sea animals\", \"farming\", \"fishing\". The prompted sentence can be in multiple languages. Answer with 'Related' or 'Not related'.";
+        string systemContext = "Your job is to determine if the prompted sentence is related to one or more of the following themes: \"ocean\", \"beach\", \"pollution\", \"garbage\", \"sea animals\", \"fish\", \"farming\", \"fishing\". The prompted sentence can be in multiple languages. Answer with 'Related' or 'Not related'.";
 
-        messages = new RequestMessage[]
+        messages = new Message[]
         {
-            new RequestMessage { role = "system", content = systemContext },
-            new RequestMessage { role = "user", content = prompt }
+            new Message { role = "system", content = systemContext },
+            new Message { role = "user", content = prompt }
         };
     }
 
     [System.Serializable]
-    public class RequestMessage
+    public class Message
     {
         public string role;
         public string content;
     }
 }
-
 
 [System.Serializable]
 public class CompletionResponse
