@@ -7900,8 +7900,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1047593162}
   - component: {fileID: 1047593161}
+  - component: {fileID: 1047593163}
   m_Layer: 0
-  m_Name: DALLE-API
+  m_Name: OpenAIAPICaller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7934,6 +7935,18 @@ Transform:
   m_Father: {fileID: 1674856754}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1047593163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047593160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23099e0caa44ee4498cc45cd1f7ad16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1051677579
 GameObject:
   m_ObjectHideFlags: 0
@@ -13078,6 +13091,8 @@ MonoBehaviour:
   promptInputField: {fileID: 1037706874}
   authorInputField: {fileID: 2014673487}
   ageInputField: {fileID: 1368791580}
+  dalleAPICaller: {fileID: 1047593161}
+  completionAPICaller: {fileID: 1047593163}
   sendButton: {fileID: 9147879837234089984}
 --- !u!1 &1727541197
 GameObject:
