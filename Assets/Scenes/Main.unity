@@ -641,7 +641,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: How do we save the oceas? Give us your best idea!
+  m_text: 'How do we save the ocean? Come up with your best idea!
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eaa028ef3722e6a4184047e6bf9cb42a, type: 2}
   m_sharedMaterial: {fileID: 6783558449613051648, guid: eaa028ef3722e6a4184047e6bf9cb42a, type: 2}
@@ -1667,15 +1669,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2687090996694887836}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb52e36ee1a059479fb838bf6e3f1fa, type: 3}
+  m_Script: {fileID: 11500000, guid: 69b19a4e1e431d743895adcceba24f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3832864590349942721}
   fillImage: {fileID: 2168876307610826028}
   percentageText: {fileID: 3034186923215635528}
   animationStateName: RunDashboard
-  stutterChance: 0.6
-  maxStutterAmount: 0.5
+  stutterChance: 0.72
+  maxStutterAmount: 0.13
 --- !u!1 &176639371
 GameObject:
   m_ObjectHideFlags: 0
@@ -6471,7 +6473,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &907439494
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6666,7 +6668,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Wie retten wir die Ozeane? Geben Sie uns Ihre beste Idee!
+  m_text: "Wie retten wir den Ozean? Gib uns deine beste Idee!\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eaa028ef3722e6a4184047e6bf9cb42a, type: 2}
   m_sharedMaterial: {fileID: 6783558449613051648, guid: eaa028ef3722e6a4184047e6bf9cb42a, type: 2}
@@ -6970,7 +6972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entries: []
-  maxEntries: 10
+  maxEntries: 15
 --- !u!1 &966576963
 GameObject:
   m_ObjectHideFlags: 0
@@ -11792,8 +11794,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1517722790}
   - component: {fileID: 1517722789}
+  - component: {fileID: 1517722791}
   m_Layer: 0
-  m_Name: ProfanityFilter
+  m_Name: Filters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11826,6 +11829,18 @@ Transform:
   m_Father: {fileID: 1674856754}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1517722791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517722788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c627d47913b4724f97509c197b2e840, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1529804439
 GameObject:
   m_ObjectHideFlags: 0
@@ -12112,7 +12127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1548392755
 RectTransform:
   m_ObjectHideFlags: 0
@@ -44564,7 +44579,7 @@ MonoBehaviour:
     - keyType: 0
       isUseDifferentSize: 0
       keySize: {x: 0, y: 0}
-      keyValue: $
+      keyValue: "\xDF"
       keyButtonScript: {fileID: 0}
     - keyType: 0
       isUseDifferentSize: 0
