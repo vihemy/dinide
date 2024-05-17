@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'The machine does not work with swear words
+  m_text: 'The machine does not understand swear words. Try again.
 
 '
   m_isRightToLeft: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Die Maschine funktioniert nicht mit Schimpfw\xF6rtern"
+  m_text: "Die Maschine versteht keine Schimpfw\xF6rter. Versuche es noch einmal.\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eaa028ef3722e6a4184047e6bf9cb42a, type: 2}
   m_sharedMaterial: {fileID: 6783558449613051648, guid: eaa028ef3722e6a4184047e6bf9cb42a, type: 2}
@@ -505,9 +505,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7488873506955255640, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_text
-      value: 'Maskinen virker ikke med bandeord
-
-'
+      value: "Maskinen virker ikke med bandeord. Pr\xF8v igen."
       objectReference: {fileID: 0}
     - target: {fileID: 7488873506955255640, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_fontAsset

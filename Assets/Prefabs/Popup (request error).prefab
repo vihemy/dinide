@@ -203,7 +203,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Die Maschine versteht die Idee nicht. Versuchen Sie es noch einmal
+  m_text: 'Die Maschine versteht die Idee nicht. Versuche es noch einmal.
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eaa028ef3722e6a4184047e6bf9cb42a, type: 2}
   m_sharedMaterial: {fileID: 6783558449613051648, guid: eaa028ef3722e6a4184047e6bf9cb42a, type: 2}

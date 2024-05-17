@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 791.76, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8412480685188833649
 CanvasRenderer:
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The machine has no connection. Please contact the staff.
+  m_text: "The machine has lost connection. Please contact the staff.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eaa028ef3722e6a4184047e6bf9cb42a, type: 2}
   m_sharedMaterial: {fileID: 6783558449613051648, guid: eaa028ef3722e6a4184047e6bf9cb42a, type: 2}
@@ -171,7 +171,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 770, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7201733820956229124
 CanvasRenderer:
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Die Maschine hat die Verbindung verloren. Bitte kontaktieren Sie das Personal.
+  m_text: "Die Maschine hat die Verbindung verloren. Bitte wende dich an das Personal.\r"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eaa028ef3722e6a4184047e6bf9cb42a, type: 2}
   m_sharedMaterial: {fileID: 6783558449613051648, guid: eaa028ef3722e6a4184047e6bf9cb42a, type: 2}
@@ -481,6 +481,10 @@ PrefabInstance:
       propertyPath: m_Spacing
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6852098800340478209, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
+      propertyPath: m_ChildControlWidth
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7488873506955255640, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_text
       value: Maskinen har mistet forbindelse. Kontakt venligst pesonalet.
@@ -507,7 +511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7848408534045898819, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 770
       objectReference: {fileID: 0}
     - target: {fileID: 7848408534045898819, guid: 86f471d755e774d60b07b92a81221ece, type: 3}
       propertyPath: m_SizeDelta.y
