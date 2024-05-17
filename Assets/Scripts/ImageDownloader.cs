@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class ImageDownloader : Singleton<ImageDownloader>
 {
-
     private Logger logger;
     private DashboardManager dashboardManager;
 
@@ -38,7 +37,7 @@ public class ImageDownloader : Singleton<ImageDownloader>
         if (IsWebRequestSuccessful(request))
         {
             ProcessDownloadedTexture(request, entry);
-            logger.Log($"Download succesfull. Image with prompt: {entry.prompt}");
+            logger.Log($"Download successful. Image with prompt: {entry.prompt}");
         }
         else
         {
@@ -67,7 +66,7 @@ public class ImageDownloader : Singleton<ImageDownloader>
         string json = JsonUtility.ToJson(entry);
         string jsonFilePath = GenerateJsonFilePath(entry.prompt);
         File.WriteAllText(jsonFilePath, json);
-        Debug.Log($"Saved metadata to: {jsonFilePath}");
+        Debug.Log($"Saved metadata to: {jsonFilePath} \n prompt: {entry.prompt} \n imageUrl: {entry.imageUrl} \n created: {entry.created} \n revisedPrompt: {entry.revisedPrompt} \n isRelevant: {entry.isRelevant}");
     }
 
     private string GenerateJPGFilePath(string filename)
@@ -111,5 +110,4 @@ public class ImageDownloader : Singleton<ImageDownloader>
             dashboardManager.OnDashboardAnimationEnd -= OnDashboardAnimationEnded;
         }
     }
-
 }

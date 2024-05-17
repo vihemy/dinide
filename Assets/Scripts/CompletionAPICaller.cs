@@ -42,7 +42,7 @@ public class CompletionAPICaller : BaseAPICaller
             Debug.Log("Result: " + result);
 
             // Update the EntryData instance based on the result
-            entry.isRelevant = result.Equals("Related", System.StringComparison.OrdinalIgnoreCase) ? true : (bool?)false;
+            entry.isRelevant = result.Equals("Related", System.StringComparison.OrdinalIgnoreCase);
             Debug.Log($"Is relevant for {entry.prompt}: {entry.isRelevant}");
 
             // Invoke the callback with the updated entry

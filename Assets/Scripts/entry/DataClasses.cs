@@ -39,7 +39,7 @@ public class EntryData
     public string imageUrl;
     public string revisedPrompt;
     public Texture2D texture;
-    public bool? isRelevant; // Nullable boolean to allow for null value if not evaluated
+    public bool isRelevant; // Nullable boolean to allow for null value if not evaluated
 
     public EntryData(
         string prompt = null,
@@ -49,7 +49,7 @@ public class EntryData
         string imageUrl = null,
         string revisedPrompt = null,
         Texture2D texture = null,
-        bool? isRelevant = null)
+        bool isRelevant = false)
     {
         this.prompt = prompt;
         this.author = author;
