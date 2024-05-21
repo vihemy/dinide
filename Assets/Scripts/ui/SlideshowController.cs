@@ -21,6 +21,12 @@ public class SlideshowController : Singleton<SlideshowController>
 
     public void StartSlideshow()
     {
+        if (EntryCache.Instance.entries.Count == 0)
+        {
+            Debug.Log("No entries in EntryCache to display yet.");
+            return;
+        }
+
         if (slideshowCoroutine != null)
         {
             StopCoroutine(slideshowCoroutine);
@@ -30,7 +36,7 @@ public class SlideshowController : Singleton<SlideshowController>
 
     private IEnumerator DisplaySlideshow()
     {
-        while (true)
+        while (EntryCache.Instance.entries.Count > 0)
         {
             yield return DisplayEntry(EntryCache.Instance.entries[currentIndex], standardDisplayDuration, true);
             MoveToNextEntry();
