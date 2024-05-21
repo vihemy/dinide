@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System.IO;
 using System.Linq;
 
@@ -17,32 +15,70 @@ public class EntryLoader : Singleton<EntryLoader>
 
     public void LoadLatestEntries()
     {
-        Log("Loading entries...");
+        Log("Loading relevant entries...");
         int maxEntries = EntryCache.Instance.maxEntries;
-        string folderPath = Application.persistentDataPath;
-        DirectoryInfo directoryInfo = new DirectoryInfo(folderPath);
-        FileInfo[] jsonFiles = directoryInfo.GetFiles("*.json");
+        string userGeneratedPath = Application.persistentDataPath;
+        FileInfo[] userGeneratedFiles = GetJsonFiles(userGeneratedPath);
 
-        // Sort the files by last write time (most recent first)
-        var sortedFiles = jsonFiles.OrderByDescending(file => file.LastWriteTime).ToArray();
-
-        // Load only the number of entries specified in EntryCache.MaxEntries
-        for (int i = 0; i < Mathf.Min(sortedFiles.Length, maxEntries); i++)
+        if (!HasRelevantEntries(userGeneratedFiles))
         {
-            FileInfo file = sortedFiles[i];
-            Debug.Log($"Entry {file.Name} is relevant");
-            string jsonPath = file.FullName;
-            string imagePath = Path.ChangeExtension(jsonPath, ".jpg");
-            EntryData entryData = LoadJsonAndImageIntoEntry(jsonPath, imagePath);
-            AddToCache(entryData);
+            Log("No relevant user-generated entries found, loading fallback entries...");
+            LoadFallbackEntries(maxEntries);
         }
-        Log($"Loaded {EntryCache.Instance.entries.Count} entries");
+        else
+        {
+            LoadEntries(userGeneratedFiles, maxEntries);
+            Log($"Loaded {EntryCache.Instance.entries.Count} entries");
+        }
     }
 
-    private EntryData LoadJsonAndImageIntoEntry(string jsonPath, string imagePath)
+    private bool HasRelevantEntries(FileInfo[] files)
+    {
+        foreach (var file in files)
+        {
+            EntryData entryData = LoadJson(file.FullName);
+            if (entryData != null && entryData.isRelevant)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void LoadFallbackEntries(int maxEntries)
+    {
+        string fallbackPath = Path.Combine(Application.streamingAssetsPath, "FallbackEntries");
+        FileInfo[] fallbackFiles = GetJsonFiles(fallbackPath);
+        LoadEntries(fallbackFiles, maxEntries);
+        Log($"Loaded fallback entries. Total entries: {EntryCache.Instance.entries.Count}");
+    }
+
+    private FileInfo[] GetJsonFiles(string folderPath)
+    {
+        DirectoryInfo directoryInfo = new DirectoryInfo(folderPath);
+        return directoryInfo.GetFiles("*.json").OrderBy(file => file.Name).ToArray();
+    }
+
+    private void LoadEntries(FileInfo[] files, int maxEntries)
+    {
+        int entriesToLoad = Mathf.Min(files.Length, maxEntries);
+
+        for (int i = 0; i < entriesToLoad; i++)
+        {
+            string jsonPath = files[i].FullName;
+            string imagePath = Path.ChangeExtension(jsonPath, ".jpg");
+            EntryData entryData = LoadJsonAndImage(jsonPath, imagePath);
+            AddToCache(entryData);
+        }
+    }
+
+    private EntryData LoadJsonAndImage(string jsonPath, string imagePath)
     {
         EntryData entryData = LoadJson(jsonPath);
-        entryData.texture = LoadImage(imagePath);
+        if (entryData != null)
+        {
+            entryData.texture = LoadImage(imagePath);
+        }
         return entryData;
     }
 
@@ -53,7 +89,7 @@ public class EntryLoader : Singleton<EntryLoader>
             string jsonContent = File.ReadAllText(jsonPath);
             return JsonUtility.FromJson<EntryData>(jsonContent);
         }
-        Debug.LogWarning("JSON file not found: " + jsonPath);
+        Debug.LogWarning($"JSON file not found: {jsonPath}");
         return null;
     }
 
@@ -66,7 +102,7 @@ public class EntryLoader : Singleton<EntryLoader>
             texture.LoadImage(imageData);
             return texture;
         }
-        Debug.LogWarning("Image file not found: " + imagePath);
+        Debug.LogWarning($"Image file not found: {imagePath}");
         return null;
     }
 
@@ -75,19 +111,6 @@ public class EntryLoader : Singleton<EntryLoader>
         if (entryData != null && entryData.texture != null)
         {
             EntryCache.Instance.AddEntryIfRelevant(entryData);
-
-        }
-        else
-        {
-            Debug.LogWarning("Entry data or texture is null");
-        }
-    }
-
-    private void DisplayEntry(EntryData entryData)
-    {
-        if (entryData != null && entryData.texture != null)
-        {
-            EntryDisplayer.Instance.CreateEntryDisplay(entryData);
         }
         else
         {
