@@ -3,6 +3,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using System.Text.RegularExpressions;
 
 public class ImageDownloader : Singleton<ImageDownloader>
 {
@@ -37,7 +38,6 @@ public class ImageDownloader : Singleton<ImageDownloader>
         if (IsWebRequestSuccessful(request))
         {
             ProcessDownloadedTexture(request, entry);
-            logger.Log($"Download successful. Image with prompt: {entry.prompt}");
         }
         else
         {
@@ -55,18 +55,25 @@ public class ImageDownloader : Singleton<ImageDownloader>
 
     private void SaveTextureAsJPG(EntryData entry)
     {
+        string cleanedFileName = RemoveSpecialCharacters(entry.prompt);
         byte[] bytes = entry.texture.EncodeToJPG();
-        string filePath = GenerateJPGFilePath(entry.prompt);
+        string filePath = GenerateJPGFilePath(cleanedFileName);
         File.WriteAllBytes(filePath, bytes);
-        Debug.Log($"Saved image to: {filePath}");
+        Debug.Log($"Downloaded image to: {filePath}");
     }
 
     private void SaveEntryDataAsJson(EntryData entry)
     {
+        string cleanedFileName = RemoveSpecialCharacters(entry.prompt);
         string json = JsonUtility.ToJson(entry);
-        string jsonFilePath = GenerateJsonFilePath(entry.prompt);
+        string jsonFilePath = GenerateJsonFilePath(cleanedFileName);
         File.WriteAllText(jsonFilePath, json);
         Debug.Log($"Saved metadata to: {jsonFilePath} \n prompt: {entry.prompt} \n imageUrl: {entry.imageUrl} \n created: {entry.created} \n revisedPrompt: {entry.revisedPrompt} \n isRelevant: {entry.isRelevant}");
+    }
+
+    public static string RemoveSpecialCharacters(string str)
+    {
+        return Regex.Replace(str, "[^a-zA-Z0-9_. æøåÆØÅäüöÄÜÖ]+", "", RegexOptions.Compiled);
     }
 
     private string GenerateJPGFilePath(string filename)
@@ -81,7 +88,7 @@ public class ImageDownloader : Singleton<ImageDownloader>
 
     private void OnDashboardAnimationEnded()
     {
-        Debug.Log("ImageDownloader.OnDashboardAnimationEnded called");
+        Debug.Log("Dashboard animation ended");
         DisplayEntry(finalizedEntry);
         GameManager.Instance.FinishProcessing();
     }
