@@ -21,7 +21,6 @@ public class DalleAPICaller : BaseAPICaller
         {
             var requestData = new DalleRequestData(entry.prompt);
             string requestJson = JsonUtility.ToJson(requestData);
-            Debug.Log("Request JSON: " + requestJson); // Log the JSON payload
             StartCoroutine(SendRequestCoroutine(requestJson, (response) => ProcessResponse(response, entry), HandleRequestError));
         }
     }

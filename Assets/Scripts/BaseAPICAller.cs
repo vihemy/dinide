@@ -30,7 +30,7 @@ public abstract class BaseAPICaller : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.Success)
         {
-            logger.Log("Request successful");
+            logger.Log($"Request successful.");
             onSuccess?.Invoke(request.downloadHandler.text);
         }
         else

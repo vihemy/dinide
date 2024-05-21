@@ -31,7 +31,6 @@ public class DashboardManager : Singleton<DashboardManager>
 
     public void TriggerAnimationEndEvent() // is triggered from RunDashboard animation
     {
-        Debug.Log("DashboardManager.OnDashboardAnimationEnd called");
         OnDashboardAnimationEnd?.Invoke();
     }
 }

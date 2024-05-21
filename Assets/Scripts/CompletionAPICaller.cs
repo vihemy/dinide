@@ -21,14 +21,14 @@ public class CompletionAPICaller : BaseAPICaller
         {
             var requestData = new CompletionRequestData(entry.prompt);
             string requestJson = JsonUtility.ToJson(requestData);
-            Debug.Log("Request JSON: " + requestJson); // Log the JSON payload
+            Debug.Log($"Sent request of relevance check for prompt = {entry.prompt}");
             StartCoroutine(SendRequestCoroutine(requestJson, (response) => ProcessResponse(response, entry, callback), HandleRequestError));
         }
     }
 
     private void HandleRequestError(UnityWebRequest request)
     {
-        Debug.LogError($"Prompt check request failed: {request.error}");
+        Debug.LogError($"Relevance check request failed. Error = {request.error}");
         // Handle the error appropriately here
     }
 
@@ -39,17 +39,16 @@ public class CompletionAPICaller : BaseAPICaller
         if (response != null && response.choices != null && response.choices.Length > 0)
         {
             string result = response.choices[0].message.content.Trim();
-            Debug.Log("Result: " + result);
 
             // Update the EntryData instance based on the result
-            entry.isRelevant = result.Equals("Related", System.StringComparison.OrdinalIgnoreCase);
+            entry.isRelevant = result.Equals("relevant", System.StringComparison.OrdinalIgnoreCase);
 
             // Invoke the callback with the updated entry
             callback?.Invoke(entry);
         }
         else
         {
-            Debug.LogError("Invalid response structure or no choices found");
+            Debug.LogError("Received no response on relevance check. Invalid response structure or no choices found");
         }
     }
 }
