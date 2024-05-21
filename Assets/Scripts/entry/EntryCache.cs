@@ -26,16 +26,6 @@ public class EntryCache : Singleton<EntryCache>
         }
     }
 
-    // public void AddEntryDuringRuntime(EntryData entry)
-    // {
-    //     if (entries.Count >= maxEntries)
-    //     {
-    //         entries.RemoveAt(0); // Remove the oldest entry
-    //     }
-    //     entries.Add(entry);
-
-    //     SlideshowController.Instance.DisplayNewEntryAndRestartSlideshow(entry);
-    // }
 
     public void RemoveEntry(EntryData entry)
     {

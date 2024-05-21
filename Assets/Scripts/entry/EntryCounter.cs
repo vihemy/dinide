@@ -24,6 +24,8 @@ public class EntryCounter : Singleton<EntryCounter>
         string folderPath = Application.persistentDataPath;
         DirectoryInfo directoryInfo = new DirectoryInfo(folderPath);
         FileInfo[] jsonFiles = directoryInfo.GetFiles("*.json");
+
+        
         return jsonFiles.Length;
     }
 
