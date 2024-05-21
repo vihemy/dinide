@@ -13,19 +13,39 @@ public class PromptManager : Singleton<PromptManager>
     [SerializeField] private TMP_InputField ageInputField;
     [SerializeField] private DalleAPICaller dalleAPICaller;
     [SerializeField] private CompletionAPICaller completionAPICaller;
-    public ButtonListener sendButton;
+    [SerializeField] private ButtonListener sendButton;
 
     void Start()
     {
         ResetInputField();
-        promptInputField.onEndEdit.AddListener(delegate { ValidateInputs(); });
-        authorInputField.onEndEdit.AddListener(delegate { ValidateInputs(); });
-        ageInputField.onValueChanged.AddListener(delegate { ValidateInputs(); });
+        AddEndEditListeners();
+    }
+
+    private void AddEndEditListeners()
+    {
+        promptInputField.onEndEdit.AddListener(OnFieldEndEdit);
+        authorInputField.onEndEdit.AddListener(OnFieldEndEdit);
+        ageInputField.onValueChanged.AddListener(OnFieldEndEdit);
+    }
+
+    private void OnFieldEndEdit(string input)
+    {
+        if (ProfanityFilter.Instance.ContainsProfanity(input))
+        {
+            PopupController.Instance.DisplayPopup(ErrorType.Profanity);
+        }
+
+        ValidateInputs();
     }
 
     private void ValidateInputs()
     {
-        sendButton.MakeInteractable(!AreFieldsEmptyOrProfane());
+        sendButton.MakeInteractable(AreAllFieldsValid());
+    }
+
+    private bool AreAllFieldsValid()
+    {
+        return !AreFieldsEmpty() && !DoesAnyFieldContainProfanity();
     }
 
     public void ResetInputField()
@@ -38,7 +58,7 @@ public class PromptManager : Singleton<PromptManager>
 
     public void CreateEntryFromPrompt()
     {
-        if (!AreFieldsEmptyOrProfane())
+        if (AreAllFieldsValid())
         {
             EntryData entry = CreateEntryData();
             completionAPICaller.CheckPromptRelated(entry, OnCompletionResponse);
@@ -48,51 +68,37 @@ public class PromptManager : Singleton<PromptManager>
 
     private EntryData CreateEntryData()
     {
-        string prompt = promptInputField.text;
-        string author = authorInputField.text;
-        string age = ageInputField.text;
-
-        EntryData entry = new EntryData(prompt, author, age); // Be careful to fill out the appropriate fields in the EntryData constructor!
-
-        Logger.Instance.Log($"Input entered: Prompt = {entry.prompt}");
-        return entry;
+        return new EntryData(promptInputField.text, authorInputField.text, ageInputField.text);
     }
 
     private void OnCompletionResponse(EntryData entry)
     {
-        // After checking relevance, pass the updated entry to DalleAPICaller
         dalleAPICaller.RequestDalle(entry);
-    }
-
-    public bool AreFieldsEmptyOrProfane()
-    {
-        if (AreFieldsEmpty())
-        {
-            return true;
-        }
-        else if (DoesFieldsContainProfanity())
-        {
-            PopupController.Instance.DisplayPopup(ErrorType.Profanity);
-            return true;
-        }
-        return false;
     }
 
     private bool AreFieldsEmpty()
     {
-        return string.IsNullOrEmpty(promptInputField.text) || string.IsNullOrEmpty(authorInputField.text) || string.IsNullOrEmpty(ageInputField.text);
+        return string.IsNullOrEmpty(promptInputField.text) ||
+               string.IsNullOrEmpty(authorInputField.text) ||
+               string.IsNullOrEmpty(ageInputField.text);
     }
 
-    private bool DoesFieldsContainProfanity()
+    private bool DoesAnyFieldContainProfanity()
     {
-        return ProfanityFilter.Instance.ContainsProfanity(promptInputField.text) || ProfanityFilter.Instance.ContainsProfanity(authorInputField.text) || ProfanityFilter.Instance.ContainsProfanity(ageInputField.text);
+        return ProfanityFilter.Instance.ContainsProfanity(promptInputField.text) ||
+               ProfanityFilter.Instance.ContainsProfanity(authorInputField.text) ||
+               ProfanityFilter.Instance.ContainsProfanity(ageInputField.text);
     }
 
     void OnDestroy()
     {
-        // Unsubscribe to avoid memory leaks
-        if (promptInputField != null) promptInputField.onValueChanged.RemoveAllListeners();
-        if (authorInputField != null) authorInputField.onValueChanged.RemoveAllListeners();
-        if (ageInputField != null) ageInputField.onValueChanged.RemoveAllListeners();
+        RemoveEndEditListeners();
+    }
+
+    private void RemoveEndEditListeners()
+    {
+        if (promptInputField != null) promptInputField.onEndEdit.RemoveAllListeners();
+        if (authorInputField != null) authorInputField.onEndEdit.RemoveAllListeners();
+        if (ageInputField != null) ageInputField.onEndEdit.RemoveAllListeners();
     }
 }
