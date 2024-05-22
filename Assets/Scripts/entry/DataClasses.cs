@@ -42,7 +42,7 @@ public class EntryData
     public string imageUrl;
     public string revisedPrompt;
     public Texture2D texture;
-    public bool isRelevant;
+    public bool isRelevant = false;
 
     public EntryData(
         string prompt = null,
