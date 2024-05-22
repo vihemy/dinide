@@ -40,6 +40,6 @@ public class EntryCounter : Singleton<EntryCounter>
 
     private string FormatWithLeadingZeros(int count)
     {
-        return count.ToString("D4");
+        return count.ToString("D5");
     }
 }
