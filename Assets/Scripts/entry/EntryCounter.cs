@@ -21,33 +21,25 @@ public class EntryCounter : Singleton<EntryCounter>
 
     private int CountEntriesOnDisk()
     {
-        string folderPath = Application.persistentDataPath;
-        DirectoryInfo directoryInfo = new DirectoryInfo(folderPath);
-        FileInfo[] jsonFiles = directoryInfo.GetFiles("*.json");
+        int persistentDataEntries = CountJsonFilesInDirectory(Application.persistentDataPath);
+        int streamingAssetsEntries = CountJsonFilesInDirectory(Path.Combine(Application.streamingAssetsPath, "FallbackEntries"));
 
-        
-        return jsonFiles.Length;
+        return persistentDataEntries + streamingAssetsEntries;
+    }
+
+    private int CountJsonFilesInDirectory(string folderPath)
+    {
+        if (Directory.Exists(folderPath))
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(folderPath);
+            FileInfo[] jsonFiles = directoryInfo.GetFiles("*.json");
+            return jsonFiles.Length;
+        }
+        return 0;
     }
 
     private string FormatWithLeadingZeros(int count)
     {
-        string countString = count.ToString();
-
-        if (countString.Length == 1) // 1 digit
-        {
-            return $"000{countString}";
-        }
-        else if (countString.Length == 2) // 2 digits
-        {
-            return $"00{countString}";
-        }
-        else if (countString.Length == 3) // 3 digits
-        {
-            return $"0{countString}";
-        }
-        else // No leading zeros required for numbers with more than 3 digits
-        {
-            return countString;
-        }
+        return count.ToString("D4");
     }
 }
