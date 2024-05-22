@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
@@ -17,40 +16,45 @@ public class EntryLoader : Singleton<EntryLoader>
     {
         Log("Loading relevant entries...");
         int maxEntries = EntryCache.Instance.maxEntries;
+        var relevantEntries = GetRelevantEntriesFromPersistentData(maxEntries);
+
+        if (relevantEntries.Count < maxEntries)
+        {
+            int remainingEntries = maxEntries - relevantEntries.Count;
+            var fallbackEntries = GetFallbackEntries(remainingEntries);
+            relevantEntries.AddRange(fallbackEntries);
+        }
+
+        foreach (var entryData in relevantEntries)
+        {
+            AddToCache(entryData);
+        }
+
+        Log($"Total entries loaded: {EntryCache.Instance.entries.Count}");
+    }
+
+    private List<EntryData> GetRelevantEntriesFromPersistentData(int maxEntries)
+    {
         string userGeneratedPath = Application.persistentDataPath;
         FileInfo[] userGeneratedFiles = GetJsonFiles(userGeneratedPath);
-
-        if (!HasRelevantEntries(userGeneratedFiles))
-        {
-            Log("No relevant user-generated entries found, loading fallback entries...");
-            LoadFallbackEntries(maxEntries);
-        }
-        else
-        {
-            LoadEntries(userGeneratedFiles, maxEntries);
-            Log($"Loaded {EntryCache.Instance.entries.Count} entries");
-        }
+        List<EntryData> relevantUserEntries = LoadRelevantEntries(userGeneratedFiles, maxEntries);
+        Log($"User generated entries loaded: {relevantUserEntries.Count}");
+        return relevantUserEntries;
     }
 
-    private bool HasRelevantEntries(FileInfo[] files)
-    {
-        foreach (var file in files)
-        {
-            EntryData entryData = LoadJson(file.FullName);
-            if (entryData != null && entryData.isRelevant)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void LoadFallbackEntries(int maxEntries)
+    private List<EntryData> GetFallbackEntries(int maxEntries)
     {
         string fallbackPath = Path.Combine(Application.streamingAssetsPath, "FallbackEntries");
+        if (!Directory.Exists(fallbackPath))
+        {
+            Log($"Fallback directory does not exist: {fallbackPath}");
+            return new List<EntryData>();
+        }
+
         FileInfo[] fallbackFiles = GetJsonFiles(fallbackPath);
-        LoadEntries(fallbackFiles, maxEntries);
-        Log($"Loaded fallback entries. Total entries: {EntryCache.Instance.entries.Count}");
+        List<EntryData> fallbackEntries = LoadRelevantEntries(fallbackFiles, maxEntries);
+        Log($"User generated entries loaded: {fallbackEntries.Count}");
+        return fallbackEntries;
     }
 
     private FileInfo[] GetJsonFiles(string folderPath)
@@ -59,62 +63,81 @@ public class EntryLoader : Singleton<EntryLoader>
         return directoryInfo.GetFiles("*.json").OrderBy(file => file.Name).ToArray();
     }
 
-    private void LoadEntries(FileInfo[] files, int maxEntries)
+    private List<EntryData> LoadRelevantEntries(FileInfo[] files, int maxEntries)
     {
-        int entriesToLoad = Mathf.Min(files.Length, maxEntries);
+        List<EntryData> relevantEntries = new List<EntryData>();
 
-        for (int i = 0; i < entriesToLoad; i++)
+        foreach (var file in files)
         {
-            string jsonPath = files[i].FullName;
-            string imagePath = Path.ChangeExtension(jsonPath, ".jpg");
-            EntryData entryData = LoadJsonAndImage(jsonPath, imagePath);
-            AddToCache(entryData);
+            if (relevantEntries.Count >= maxEntries)
+            {
+                break;
+            }
+
+            EntryData entryData = LoadJsonIfRelevant(file.FullName);
+            if (entryData != null)
+            {
+                entryData.texture = LoadImage(Path.ChangeExtension(file.FullName, ".jpg"));
+                relevantEntries.Add(entryData);
+            }
         }
+        return relevantEntries;
     }
 
-    private EntryData LoadJsonAndImage(string jsonPath, string imagePath)
+    private EntryData LoadJsonIfRelevant(string jsonPath)
     {
-        EntryData entryData = LoadJson(jsonPath);
-        if (entryData != null)
+        try
         {
-            entryData.texture = LoadImage(imagePath);
-        }
-        return entryData;
-    }
+            if (File.Exists(jsonPath))
+            {
+                string jsonContent = File.ReadAllText(jsonPath);
 
-    private EntryData LoadJson(string jsonPath)
-    {
-        if (File.Exists(jsonPath))
-        {
-            string jsonContent = File.ReadAllText(jsonPath);
-            return JsonUtility.FromJson<EntryData>(jsonContent);
+                // Skip JSON files that do not contain the "isRelevant" field
+                if (!jsonContent.Contains("\"isRelevant\""))
+                {
+                    return null;
+                }
+
+                EntryData entryData = JsonUtility.FromJson<EntryData>(jsonContent);
+
+                // Check if the entry is relevant
+                if (entryData.isRelevant)
+                {
+                    return entryData;
+                }
+            }
         }
-        Debug.LogWarning($"JSON file not found: {jsonPath}");
+        catch (System.Exception ex)
+        {
+            Log($"Error reading JSON file {jsonPath}: {ex.Message}");
+        }
         return null;
     }
 
     private Texture2D LoadImage(string imagePath)
     {
-        if (File.Exists(imagePath))
+        try
         {
-            byte[] imageData = File.ReadAllBytes(imagePath);
-            Texture2D texture = new Texture2D(2, 2);
-            texture.LoadImage(imageData);
-            return texture;
+            if (File.Exists(imagePath))
+            {
+                byte[] imageData = File.ReadAllBytes(imagePath);
+                Texture2D texture = new Texture2D(2, 2);
+                texture.LoadImage(imageData);
+                return texture;
+            }
         }
-        Debug.LogWarning($"Image file not found: {imagePath}");
+        catch (System.Exception ex)
+        {
+            Log($"Error reading image file {imagePath}: {ex.Message}");
+        }
         return null;
     }
 
-    private static void AddToCache(EntryData entryData)
+    private void AddToCache(EntryData entryData)
     {
         if (entryData != null && entryData.texture != null)
         {
             EntryCache.Instance.AddEntryIfRelevant(entryData);
-        }
-        else
-        {
-            Debug.LogWarning("Entry data or texture is null");
         }
     }
 
