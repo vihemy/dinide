@@ -53,14 +53,16 @@ public class EntryLoader : Singleton<EntryLoader>
 
         FileInfo[] fallbackFiles = GetJsonFiles(fallbackPath);
         List<EntryData> fallbackEntries = LoadRelevantEntries(fallbackFiles, maxEntries);
-        Log($"User generated entries loaded: {fallbackEntries.Count}");
+        Log($"Fallback entries loaded: {fallbackEntries.Count}");
         return fallbackEntries;
     }
 
     private FileInfo[] GetJsonFiles(string folderPath)
     {
         DirectoryInfo directoryInfo = new DirectoryInfo(folderPath);
-        return directoryInfo.GetFiles("*.json").OrderBy(file => file.Name).ToArray();
+        return directoryInfo.GetFiles("*.json")
+                           .OrderByDescending(file => file.CreationTime) // Order by creation time
+                           .ToArray();
     }
 
     private List<EntryData> LoadRelevantEntries(FileInfo[] files, int maxEntries)
