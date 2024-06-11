@@ -13813,7 +13813,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 123502725}
   promptText: {fileID: 207970457}
   authorInfoText: {fileID: 1040815150}
-  standardDisplayDuration: 7
+  standardDisplayDuration: 8
   newEntryDisplayDuration: 15
   fadeDuration: 3
 --- !u!4 &1847706244
