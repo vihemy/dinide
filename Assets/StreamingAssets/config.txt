@@ -1,0 +1,10 @@
+API_KEY=
+
+API_IMAGE_URL= https://api.openai.com/v1/images/generations
+DALLE_MODEL=dall-e-3
+DALLE_N=1
+DALLE_SIZE=1024x1024
+
+API_CHAT_URL = https://api.openai.com/v1/chat/completions
+GPT_MODEL=gpt-3.5-turbo-0125
+SYSTEM_CONTEXT=Determine if the sentence relates to: ocean, beach, pollution, garbage, oxygen, sea animals, fish, farming, fishing, technology, future. It can be in any language. Answer 'relevant' or 'not relevant'.
