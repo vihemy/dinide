@@ -1,6 +1,6 @@
 # Din Ide (Idea-O-Mator 3000)
 ## Description:
-This repo contains part of the source code of the interactive installation **Din Ide** for the purpose of showcasing the code.
+This repo contains part of the source code of the interactive installation **Din Ide** for the purpose of showcasing the code. (See Assets/Scripts to browse my code)
 
 This installation is created in Unity3D and developed for the exhibition Dødvande (Dead Water), which premiered in 2024 at the Danish aquarium Kattegatcentret.
 
