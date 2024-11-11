@@ -1,12 +1,12 @@
 # Din Ide (The Idea Machine)
 ## Description
-This repo contains part of the source code of the interactive installation **Din Ide** for the purpose of showcasing the code. (See Assets/Scripts to browse my code)
+This repo contains part of the source code for the interactive installation **Din Ide**, showcased here for code demonstration purposes. (See Assets/Scripts to browse my code.)
 
-This installation is created in Unity3D and developed for the exhibition Dødvande (Dead Water), which premiered in 2024 at the Danish aquarium Kattegatcentret.
+The application, created in Unity, is part of the Dødvande (Dead Water) exhibition at the Danish aquarium Kattegatcentret, which premiered in 2024.
+
+It takes the form of a fantastical sci-fi machine that transforms user ideas on how to improve the ocean environment into colorful images, through a series of playful dashboards and DMX light fixture animations.
 
 ![Installation picture](https://github.com/vihemy/dinide/blob/main/ReadmeAssets/installation.jpg)
-
-In this installation, the user types in an idea of how to improve the Danish aquatic environment, which is transformed by the idea machine into an image that appears in front of the user.
 
 ## Setup
 
