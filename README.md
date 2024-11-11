@@ -1,4 +1,4 @@
-# Din Ide (Idea-O-Mator 3000)
+# Din Ide (The Idea Machine)
 ## Description
 This repo contains part of the source code of the interactive installation **Din Ide** for the purpose of showcasing the code. (See Assets/Scripts to browse my code)
 
@@ -6,7 +6,7 @@ This installation is created in Unity3D and developed for the exhibition Dødvan
 
 ![Installation picture](https://github.com/vihemy/dinide/blob/main/ReadmeAssets/installation.jpg)
 
-In this installation, the user types in an idea of how to improve the Danish aquatic environment, which is transformed by the "idea machine" into an image that appears in front of the user.
+In this installation, the user types in an idea of how to improve the Danish aquatic environment, which is transformed by the idea machine into an image that appears in front of the user.
 
 ## Setup
 
